@@ -2,7 +2,7 @@
 # Members
 Project Manager: Kayla Therior (kaylatheriot04)\
 Communications Lead: [Name] ([GitHub Name])\
-Git Master: [Name] ([GitHub Name])\
+Git Master: Melanie J. Steiner (an-npc)\
 Design Lead: Nicole Parra (nicki911)\
 Quality Assurance Tester: [Name] ([GitHub Name])
 
