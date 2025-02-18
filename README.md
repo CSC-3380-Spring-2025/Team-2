@@ -1,6 +1,6 @@
-# [Name of the Project] : [Team Number]
+# Bubble: Team 2
 # Members
-Project Manager: [Name] ([GitHub Name])\
+Project Manager: Kayla Therior (kaylatheriot04)\
 Communications Lead: [Name] ([GitHub Name])\
 Git Master: [Name] ([GitHub Name])\
 Design Lead: [Name] ([GitHub Name])\
