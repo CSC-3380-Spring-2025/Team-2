@@ -3,7 +3,7 @@
 Project Manager: Kayla Therior (kaylatheriot04)\
 Communications Lead: [Name] ([GitHub Name])\
 Git Master: [Name] ([GitHub Name])\
-Design Lead: [Name] ([GitHub Name])\
+Design Lead: Nicole Parra (nicki911)\
 Quality Assurance Tester: [Name] ([GitHub Name])
 
 # About Our Software
