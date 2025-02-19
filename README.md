@@ -16,8 +16,8 @@ Describe a little about what the project is about here.
 - Linux
 - Windows
 # Important Links
-Kanban Board: [link]\
-Designs: [link]\
+Kanban Board: https://www.notion.so/3380-Project-17d239c70f2980eda9b5c16da45ae948?pvs=4
+Designs: https://www.figma.com/design/0hr2l1GO9JlkkFzj4LoAUK/Bubble?node-id=10-2202&t=Ypk9JjU8EsMfEPth-1
 Styles Guide(s): [link]
 
 # How to Run Dev and Test Environment
