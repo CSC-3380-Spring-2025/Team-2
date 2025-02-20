@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F2F1EB',
-    alignItems:'center',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     color: '#33261D',
   },
-})
+});
