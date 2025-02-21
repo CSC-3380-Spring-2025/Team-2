@@ -38,8 +38,8 @@ export default function LoginScreen() {
     let [email, setEmail] = React.useState(''); // '' initializes it, leaving it blank results in ghost errors.
     let [password, setPassword] = React.useState('');
 
-    function printEmail(em: any) { // testing function; will be replaces soon
-        console.log(em);
+    function printEmail(e: any) { // testing function; will be replaces soon
+        console.log(e);
     }
     function printPass(pa: any) {
         console.log(pa);
