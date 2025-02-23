@@ -5,7 +5,7 @@ import Login from "./login";
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Login />
+      <Login /> <br />
     </View>
   );
 }
