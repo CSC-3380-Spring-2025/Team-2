@@ -5,6 +5,7 @@ export default function Profile() {
     return (
         <View>
             <Text>Profile Screen Here!!!</Text>
+            <br />
         </View>
     );
 }
