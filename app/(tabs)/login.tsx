@@ -33,6 +33,10 @@ const styles = StyleSheet.create({
     textInput: {
         backgroundColor: "white",
     },
+    Button: {
+        maxHeight: 50,
+        backgroundColor: "#a2b08b"
+    }
 
 });
 
@@ -58,7 +62,7 @@ export default function Login() {
         <ScrollView style={styles.scrollview}>
             <View style={styles.view}>
                 <Image
-                    source={{ uri: 'http://www.csc.lsu.edu/~qywang/CS2610/LSU_logo.png' }}
+                    source={require('C:/Users/witch/Projects/Team-2/assets/images/splash-icon.png')}
                     style={{
                         width: 20 * vw,
                         height: 10 * vw,
