@@ -5,10 +5,12 @@ const vw = width / 100;
 const vh = height / 100;
 
 const styles = StyleSheet.create({
-    button: {
-        fontSize: 20,
-        textDecorationLine: 'underline',
-        color: '#33261D',
+    backBtn: {
+        maxHeight: 50,
+        maxWidth: 70,
+        backgroundColor: '',
+        position: 'absolute',
+        left: 0,
     },
     container: {
         flex: 1,
@@ -16,12 +18,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    logo: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: "",
+        width: (55 * vw),
+        maxHeight: 250
+    },
     row: {
         display: 'flex',
         flexDirection: "row",
         justifyContent: 'space-between',
     },
-    cRow: {
+    rowCentered: {
         display: 'flex',
         flexDirection: "row",
         justifyContent: 'center',
@@ -33,14 +42,15 @@ const styles = StyleSheet.create({
         maxWidth: 500,
         paddingLeft: 4 * vw,
         paddingRight: 4 * vw,
-        backgroundColor: '#99999C',
+        backgroundColor: '#F2F1EB',
+        // backgroundColor: '#99999C',
     },
     text: {
         color: '#33261D'
     },
     textInput: {
         backgroundColor: "#F2F1EB",
-        borderBottomColor: "#4C4737",
+        borderBottomColor: "#614938",
         borderBottomWidth: 4,
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
@@ -48,9 +58,10 @@ const styles = StyleSheet.create({
         height: 50,
         margin: 10,
         minHeight: 50,
+        color: '#614938',
     },
     view: {
-        backgroundColor: "white",
+        backgroundColor: "F2F1EB",
         height: 100 * vh,
     },
 
@@ -71,19 +82,20 @@ export default function CreateProfile() {
     return (
         <ScrollView style={styles.scrollview}>
             <View style={styles.view}>
-                <View style={styles.cRow}>
-                    <View id='backBtn' style={{ maxHeight: 50, maxWidth: 60, position: 'fixed', top: 20, left: 20, }}>
+                <View style={styles.rowCentered}>
+                    <View
+                        id='backBtn'
+                        style={styles.backBtn}>
                         <Button title='back' />
                     </View>
-
-                    <View style={{ backgroundColor: "", width: (55 * vw), alignItems: 'center' }}>
-                        <View id='logo' style={{ maxHeight: 250 }}>
+                    <View id='logo' style={styles.logo}>
+                        <View style={{}}>
                             <Image
                                 source={require('C:/Users/witch/Projects/Team-2/assets/images/splash-icon.png')}
                                 style={{
-                                    marginTop: 20,
                                     width: 40 * vw,
                                     height: 40 * vw,
+                                    backgroundColor: ""
                                 }}
                                 resizeMode="contain"
                             />
@@ -95,12 +107,14 @@ export default function CreateProfile() {
                         <TextInput
                             style={styles.textInput}
                             placeholder='first name *'
+                            placeholderTextColor='black'
                             onChangeText={setFirst}
                             value={first}
                         />
                         <TextInput
                             style={styles.textInput}
                             placeholder='last name *'
+                            placeholderTextColor='black'
                             onChangeText={setLast}
                             value={last}
                         />
@@ -109,6 +123,7 @@ export default function CreateProfile() {
                         <TextInput
                             style={styles.textInput}
                             placeholder='phone number *'
+                            placeholderTextColor='black'
                             onChangeText={setPhone}
                             value={phone}
                         />
@@ -117,13 +132,16 @@ export default function CreateProfile() {
                         <TextInput
                             style={styles.textInput}
                             placeholder='email'
+                            placeholderTextColor='black'
                             value={email}
                             onChangeText={setEmail}
                         />
                     </View>
                     <View style={styles.row}>
                         <TextInput
-                            style={styles.textInput} placeholder='password *'
+                            style={styles.textInput}
+                            placeholder='password *'
+                            placeholderTextColor='black'
                             onChangeText={setPass}
                             value={password}
                         />
@@ -132,19 +150,23 @@ export default function CreateProfile() {
                         <TextInput
                             style={styles.textInput}
                             placeholder='confirm password * '
+                            placeholderTextColor='black'
                             value={cPassword}
                             onChangeText={setCPass}
                         />
                     </View>
                 </View>
-                <View id="btnRow" style={styles.cRow}>
+                <View id="btnRow" style={styles.rowCentered}>
                     <View style={{
                         flex: 1,
-                        borderRadius: 5, maxWidth: 200, backgroundColor: "red", marginTop: 70,
+                        borderRadius: 5,
+                        maxWidth: 200,
+                        marginTop: 70,
+                        backgroundColor: '#688a65'
                     }}>
                         <Button
                             title='create account'
-                            color="#a2b08b"
+                            color="#F2F1EB"
                             onPress={onSumbit}
                         />
                     </View>
