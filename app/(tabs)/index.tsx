@@ -9,7 +9,7 @@ import Home from './home';
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Home />
+      <Profile />
     </View>
   );
 }

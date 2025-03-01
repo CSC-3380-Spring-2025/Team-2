@@ -6,10 +6,25 @@ const vw = width / 100;
 const vh = height / 100;
 
 const styles = StyleSheet.create({
+    backBtn: {
+        maxHeight: 50,
+        maxWidth: 70,
+        backgroundColor: '',
+        position: 'absolute',
+        left: 0,
+    },
     button: {
-        fontSize: 20,
-        textDecorationLine: 'underline',
-        color: '#33261D',
+        flex: 1,
+        borderRadius: 5,
+        maxWidth: 275,
+        maxHeight: 50,
+        backgroundColor: '#688a65',
+        borderColor: '#2c341b',
+        borderWidth: 2,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
     },
     container: {
         flex: 1,
@@ -17,26 +32,60 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    columnCentered: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    logo: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: "",
+        width: (55 * vw),
+        maxHeight: 250
+    },
+    row: {
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: 'space-between',
+    },
+    rowCentered: {
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: 'center',
+        borderRadius: 5,
+        // backgroundColor: 'lightblue',
+    }, rowEnd: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
     scrollview: {
         width: 100 * vw,
         maxWidth: 500,
         paddingLeft: 4 * vw,
         paddingRight: 4 * vw,
+        backgroundColor: '#F2F1EB',
+        // backgroundColor: '#99999C',
     },
     text: {
         color: '#33261D'
     },
+    textInput: {
+        backgroundColor: "#F2F1EB",
+        borderBottomColor: "#614938",
+        borderBottomWidth: 4,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        flex: 1,
+        height: 50,
+        margin: 10,
+        minHeight: 50,
+        color: '#614938',
+    },
     view: {
-        backgroundColor: "#8ceeda",
+        backgroundColor: "F2F1EB",
         height: 100 * vh,
     },
-    textInput: {
-        backgroundColor: "white",
-    },
-    Button: {
-        maxHeight: 50,
-        backgroundColor: "#a2b08b"
-    }
 
 });
 
@@ -61,39 +110,67 @@ export default function Login() {
     return (
         <ScrollView style={styles.scrollview}>
             <View style={styles.view}>
-                <Image
+                <View style={styles.rowCentered}><Image
                     source={require('C:/Users/witch/Projects/Team-2/assets/images/splash-icon.png')}
                     style={{
-                        width: 20 * vw,
-                        height: 10 * vw,
-                        backgroundColor: 'red'
+                        width: 40 * vw,
+                        height: 40 * vw,
+                        backgroundColor: ''
                     }}
                     resizeMode="contain"
-                />
-                <TextInput
-                    onChangeText={setEmail} // uses setEmail funct to update variable email as users types
-                    placeholder="EMAIL"
-                    style={styles.textInput}
-                    textContentType="emailAddress"
-                    value={email} // passes email variable
-                ></TextInput>
-                <TextInput
-                    onChangeText={setPassword} // uses setPassword funct to update variable password as users types
-                    textContentType="password"
-                    placeholder="PASSWORD"
-                    style={styles.textInput}
-                    value={password} // passes password variable
-                ></TextInput>
-                <Text>forgot password</Text>
-                <Button
-                    title="login"
-                    onPress={() => {
-                        console.log("Pressed!");
-                        printEmail(email), printPass(password);
-                    }} />
-                <Text>don't have an account?</Text>
-                <Button title="signup" />
+                /></View>
+                <View style={styles.row}>
+                    <TextInput
+                        onChangeText={setEmail} // uses setEmail funct to update variable email as users types
+                        placeholder="email * "
+                        style={styles.textInput}
+                        placeholderTextColor='black'
+                        textContentType="emailAddress"
+                        value={email} // passes email variable
+                    ></TextInput>
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        onChangeText={setPassword} // uses setPassword funct to update variable password as users types
+                        textContentType="password"
+                        placeholder="password * "
+                        placeholderTextColor='black'
+                        style={styles.textInput}
+                        value={password} // passes password variable
+                    ></TextInput>
+                </View>
+                <View style={styles.rowEnd}>
+                    <Text style={{ height: 30 }}>forgot password?</Text>
+                </View>
+
+
+
+                <View style={{ marginTop: 90 }}>
+                    <View style={styles.rowCentered}>
+                        <View style={styles.button}>
+                            <Button
+                                title="login"
+                                color="#F2F1EB"
+                                onPress={() => {
+                                    console.log("Pressed!");
+                                    printEmail(email), printPass(password);
+                                }} />
+                        </View>
+                    </View>
+                </View>
+                <View style={{ marginTop: 30 }}>
+                    <View style={styles.rowCentered}>
+                        <Text style={{ height: 30 }}>don't have an account?</Text>
+                    </View>
+                    <View style={styles.rowCentered}>
+                        <View style={styles.button}>
+                            <Button title="signup" color="#F2F1EB" />
+                        </View>
+                    </View>
+                </View>
+
             </View>
+
         </ScrollView>
     );
 }
