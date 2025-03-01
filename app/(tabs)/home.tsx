@@ -130,15 +130,11 @@ export default function Home() {
                             title="details"
                             onPress={changeDets}></Button>
                         <View style={{ display: dets ? 'flex' : 'none' }}>
-                            <Text style={{ color: 'white' }}>
-                                <ul>
-                                    <li>20 points: topping</li>
-                                    <li>40 points: drink</li>
-                                    <li>60 points: bakery item</li>
-                                    <li>80 points: food item</li>
-                                    <li>100 points: merchandise</li>
-                                </ul>
-                            </Text>
+                                <Text style={{ color: 'white' }}>20 points: topping</Text>
+                                <Text style={{ color: 'white' }}>40 points: drink</Text>
+                                <Text style={{ color: 'white' }}>60 points: bakery item</Text>
+                                <Text style={{ color: 'white' }}>80 points: food item</Text>
+                                <Text style={{ color: 'white' }}>100 points: merchandise</Text>
                         </View>
                         <View style={styles.divider2}>
                             <Button title="favorites"></Button>
