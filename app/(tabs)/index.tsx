@@ -3,12 +3,13 @@ import { Text, View, StyleSheet } from "react-native";
 import { Link } from 'expo-router';
 import Login from "./login";
 import Profile from './createprofile';
+import Home from './home';
 
 
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Profile />
+      <Home />
     </View>
   );
 }

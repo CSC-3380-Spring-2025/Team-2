@@ -22,11 +22,17 @@ Styles Guide(s): [link]
 
 # How to Run Dev and Test Environment
 Check if expo is installed:
-	"expo --version"
+```sh
+expo --version
+```
 If not recognized run: 
-	"npm i expo"
+```sh
+npm i expo
+```
 Now installed run:
-	"npx expo start"
+```sh
+npx expo start
+```
 
 ## Dependencies
 @expo/vector-icons: ^14.0.2
