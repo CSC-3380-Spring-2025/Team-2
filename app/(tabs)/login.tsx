@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Dimensions, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Dimensions, Image, Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
@@ -18,19 +18,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         maxWidth: 275,
         maxHeight: 50,
-        backgroundColor: '#688a65',
+        backgroundColor: Platform.select({ ios: '#688a65', android: 'transparent' }),
         borderColor: '#2c341b',
-        borderWidth: 2,
+        borderWidth: Platform.select({ ios: 2, android: 0 }),
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#F2F1EB',
-        alignItems: 'center',
-        justifyContent: 'center',
+
     },
     columnCentered: {
         display: 'flex',
@@ -54,7 +49,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 5,
         // backgroundColor: 'lightblue',
-    }, rowEnd: {
+    },
+    rowEnd: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-end',
@@ -150,7 +146,7 @@ export default function Login() {
                         <View style={styles.button}>
                             <Button
                                 title="login"
-                                color="#F2F1EB"
+                                color={Platform.select({ ios: '#F2F1EB', android: '#688a65' })}
                                 onPress={() => {
                                     console.log("Pressed!");
                                     printEmail(email), printPass(password);
@@ -164,7 +160,7 @@ export default function Login() {
                     </View>
                     <View style={styles.rowCentered}>
                         <View style={styles.button}>
-                            <Button title="signup" color="#F2F1EB" />
+                            <Button title="signup" color={Platform.select({ ios: '#F2F1EB', android: '#688a65' })} />
                         </View>
                     </View>
                 </View>
