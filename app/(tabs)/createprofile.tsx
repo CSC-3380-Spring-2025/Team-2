@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Dimensions, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Dimensions, Image, Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
 const vh = height / 100;
@@ -11,6 +12,21 @@ const styles = StyleSheet.create({
         backgroundColor: '',
         position: 'absolute',
         left: 0,
+    },
+    button: {
+        flex: 1,
+        borderRadius: 5,
+        maxWidth: 275,
+        maxHeight: 50,
+        marginTop: 70,
+        backgroundColor: Platform.select({ ios: '#688a65', android: 'transparent' }),
+        borderColor: '#2c341b',
+        borderWidth: Platform.select({ ios: 2, android: 0 }),
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+
     },
     container: {
         flex: 1,
@@ -86,7 +102,7 @@ export default function CreateProfile() {
                     <View
                         id='backBtn'
                         style={styles.backBtn}>
-                        <Button title='back' />
+                        <Ionicons name='arrow-back-circle-outline' size={50} color='#614938' />
                     </View>
                     <View id='logo' style={styles.logo}>
                         <View style={{}}>
@@ -157,16 +173,10 @@ export default function CreateProfile() {
                     </View>
                 </View>
                 <View id="btnRow" style={styles.rowCentered}>
-                    <View style={{
-                        flex: 1,
-                        borderRadius: 5,
-                        maxWidth: 200,
-                        marginTop: 70,
-                        backgroundColor: '#688a65'
-                    }}>
+                    <View style={styles.button}>
                         <Button
                             title='create account'
-                            color="#F2F1EB"
+                            color={Platform.select({ ios: '#F2F1EB', android: '#688a65' })}
                             onPress={onSumbit}
                         />
                     </View>
