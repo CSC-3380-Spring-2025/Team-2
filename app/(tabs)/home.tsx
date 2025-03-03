@@ -1,58 +1,61 @@
 import React from 'react';
-import { Button, Dimensions, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Dimensions, Image, Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
 const vh = height / 100;
 
 const styles = StyleSheet.create({
     button: {
-        fontSize: 20,
-        textDecorationLine: 'underline',
-        color: '#33261D',
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#F2F1EB',
-        alignItems: 'center',
-        justifyContent: 'center',
+        minHeight: 50,
+        minWidth: 275,
+        maxWidth: 300,
+        // borderColor: 'black',
+        backgroundColor: Platform.select({ ios: 'transparent', android: 'transparent', default: 'green' }),
+        borderWidth: Platform.select({ ios: 2, android: 0 }),
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
     },
     divider1: {
         display: "flex",
         backgroundColor: "#97ac82",
         minHeight: 600,
-        // border: "",
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
         justifyContent: "flex-end",
+        borderColor: 'red',
     },
     divider2: {
         display: "flex",
         backgroundColor: "#688a65",
         height: 350,
-        // border: "",
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
         justifyContent: "flex-end",
+        borderColor: 'orange',
+        marginTop: 30,
     },
     divider3: {
         display: "flex",
         backgroundColor: "#2c341b",
         height: 210,
-        // border: "",
+        borderColor: 'yellow',
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
         justifyContent: "center",
+        marginTop: 30,
     },
     header: {
         alignContent: 'center',
-        // backgroundColor: 'lightblue',
         display: 'flex',
         flexDirection: "row",
         justifyContent: 'space-between',
-        maxHeight: 50,
+        minHeight: 70,
         marginBottom: 30,
-        marginTop: 50,
-
+        backgroundColor: '',
     },
     rowCentered: {
         display: 'flex',
@@ -71,7 +74,7 @@ const styles = StyleSheet.create({
         maxWidth: 500,
         paddingLeft: 4 * vw,
         paddingRight: 4 * vw,
-        backgroundColor: '#99999C',
+        backgroundColor: '#F2F1EB',
     },
     text: {
         color: '#33261D'
@@ -92,8 +95,11 @@ const styles = StyleSheet.create({
         minHeight: 50,
     },
     view: {
-        backgroundColor: "white",
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: "#F2F1EB",
         height: 100 * vh,
+        alignContent: 'flex-end',
     },
 });
 
@@ -105,50 +111,102 @@ export default function Home() {
     }
 
     return (
-        <ScrollView style={styles.scrollview}>
-            <View style={styles.view}>
-                <View style={styles.header}>
-                    <Text>PFP</Text>
+        <View style={styles.view}>
+            <View id='header' style={styles.header}>
+                <View id='pfp' style={{
+                    backgroundColor: '',
+                    minHeight: 70,
+                    minWidth: 70,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+
+                }}>
+                    <Ionicons
+                        name="person-circle-outline"
+                        size={50} color="#614938"
+                    />
+                </View>
+                <View id='title' style={{ backgroundColor: '', display: 'flex', justifyContent: 'center', }}>
                     <Text style={styles.title}>bubble</Text>
+                </View>
+                <View style={{
+                    backgroundColor: '',
+
+                }}>
                     <Image
                         source={require('C:/Users/witch/Projects/Team-2/assets/images/splash-icon.png')}
                         style={{
-                            width: 5 * vw,
-                            height: 5 * vw,
-
+                            minHeight: 70,
+                            minWidth: 70,
+                            width: 70,
+                            height: 70,
+                            maxHeight: 70,
+                            maxWidth: 70,
+                            backgroundColor: ''
                         }}
                         resizeMode="contain"
                     />
                 </View>
-                <View
-                    style={{
-                        display: "flex",
-                        justifyContent: "flex-end"
-                    }}>
-                    <View style={styles.divider1}>
-                        <Button
-                            title="details"
-                            onPress={changeDets}></Button>
-                        <View style={{ display: dets ? 'flex' : 'none' }}>
-                            <Text style={{ color: 'white' }}>
-                                <ul>
-                                    <li>20 points: topping</li>
-                                    <li>40 points: drink</li>
-                                    <li>60 points: bakery item</li>
-                                    <li>80 points: food item</li>
-                                    <li>100 points: merchandise</li>
-                                </ul>
-                            </Text>
+            </View>
+            <View
+                id='body'
+                style={{
+                    display: "flex",
+                    justifyContent: "flex-end"
+                }}>
+                <View style={styles.divider1}>
+                    {/* <Text>Rewards</Text>
+                    <Text>60 Points</Text> // this should not be hard coded!!! */}
+                    <View style={styles.rowCentered}>
+                        <View style={styles.button}>
+                            <Button
+                                title="details"
+                                onPress={changeDets}
+                                color={Platform.select({ ios: '#F2F1EB', android: '#97ac82' })} // encapsulation???
+                            ></Button>
                         </View>
-                        <View style={styles.divider2}>
-                            <Button title="favorites"></Button>
-                            <View style={styles.divider3}>
-                                <Button title="recents"></Button>
+                    </View>
+                    <View
+                        style={{
+                            display: dets ? 'flex' : 'none',
+                            flexDirection: "row",
+                            justifyContent: 'center',
+                            borderRadius: 5,
+                            paddingTop: 10,
+                        }}>
+                        <View>
+                            <Text style={{ color: 'white' }}>☆  20 points: topping</Text>
+                            <Text style={{ color: 'white' }}>☆  40 points: drink</Text>
+                            <Text style={{ color: 'white' }}>☆  60 points: bakery item</Text>
+                            <Text style={{ color: 'white' }}>☆  80 points: food item</Text>
+                            <Text style={{ color: 'white' }}>☆  100 points: merchandise</Text>
+                        </View>
+                    </View>
+                    <View style={styles.divider2}>
+                        <View style={styles.rowCentered}>
+                            <View style={styles.button}>
+                                <Button
+                                    title="favorites"
+                                    color={Platform.select({ ios: '#F2F1EB', android: '#688a65' })}
+
+                                ></Button>
+                            </View>
+                        </View>
+                        <View style={styles.divider3}>
+                            <View style={styles.rowCentered}>
+
+
+                                <View style={styles.button}>
+                                    <Button
+                                        title="recents"
+                                        color={Platform.select({ ios: '#F2F1EB', android: '#2c341b' })}></Button>
+                                </View>
                             </View>
                         </View>
                     </View>
                 </View>
             </View>
-        </ScrollView>
+        </View>
     );
 }
