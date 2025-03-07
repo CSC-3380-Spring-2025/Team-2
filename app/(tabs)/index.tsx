@@ -8,9 +8,7 @@ import Home from './home';
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Profile />
-    </View>
+    <Home />
   );
 }
 
