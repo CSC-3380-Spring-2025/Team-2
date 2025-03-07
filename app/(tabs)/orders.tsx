@@ -153,7 +153,7 @@ export default function Orders() {
 
                 }}>
                     <Image
-                        source={require('C:/Users/witch/Projects/Team-2/assets/images/splash-icon.png')}
+                        source={require('@/assets/images/splash-icon.png')}
                         style={{
                             minHeight: 70,
                             minWidth: 70,

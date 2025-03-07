@@ -111,7 +111,7 @@ export default function Login() {
             paddingRight: 16,
         }}>
             <View style={styles.rowCentered}><Image
-                source={require('C:/Users/witch/Projects/Team-2/assets/images/splash-icon.png')}
+                source={require('@/assets/images/splash-icon.png')}
                 style={{
                     width: 40 * vw,
                     height: 40 * vw,
