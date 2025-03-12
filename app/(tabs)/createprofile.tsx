@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Dimensions, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, StyleSheet, Text, TextInput, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
 const vh = height / 100;
@@ -10,7 +11,23 @@ const styles = StyleSheet.create({
         maxWidth: 70,
         backgroundColor: '',
         position: 'absolute',
-        left: 0,
+        left: 10,
+        top: 10,
+    },
+    button: {
+        flex: 1,
+        borderRadius: 5,
+        maxWidth: 275,
+        maxHeight: 50,
+        marginTop: 70,
+        backgroundColor: Platform.select({ ios: '#688a65', android: 'transparent' }),
+        borderColor: '#2c341b',
+        borderWidth: Platform.select({ ios: 2, android: 0 }),
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+
     },
     container: {
         flex: 1,
@@ -80,98 +97,108 @@ export default function CreateProfile() {
     }
 
     return (
-        <ScrollView style={styles.scrollview}>
-            <View style={styles.view}>
-                <View style={styles.rowCentered}>
-                    <View
-                        id='backBtn'
-                        style={styles.backBtn}>
-                        <Button title='back' />
-                    </View>
-                    <View id='logo' style={styles.logo}>
-                        <View style={{}}>
-                            <Image
-                                source={require('C:/Users/witch/Projects/Team-2/assets/images/splash-icon.png')}
-                                style={{
-                                    width: 40 * vw,
-                                    height: 40 * vw,
-                                    backgroundColor: ""
-                                }}
-                                resizeMode="contain"
-                            />
-                        </View>
-                    </View>
+        <SafeAreaView style={{
+            flex: 1,
+            backgroundColor: '#F2F1EB',
+            paddingLeft: 16,
+            paddingRight: 16,
+        }}>
+            <StatusBar
+                animated={true}
+                backgroundColor="#688a65"
+                barStyle={'default'}
+                showHideTransition={'fade'}
+                // hidden={hidden}
+                networkActivityIndicatorVisible={true}
+                translucent={true}
+            />
+            <View style={styles.rowCentered}>
+                <View
+                    id='backBtn'
+                    style={styles.backBtn}>
+                    <Ionicons name='arrow-back-circle-outline' size={50} color='#614938' />
                 </View>
-                <View id='enterInfo'>
-                    <View style={styles.row}>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder='first name *'
-                            placeholderTextColor='black'
-                            onChangeText={setFirst}
-                            value={first}
-                        />
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder='last name *'
-                            placeholderTextColor='black'
-                            onChangeText={setLast}
-                            value={last}
-                        />
-                    </View>
-                    <View style={styles.row}>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder='phone number *'
-                            placeholderTextColor='black'
-                            onChangeText={setPhone}
-                            value={phone}
-                        />
-                    </View>
-                    <View style={styles.row}>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder='email'
-                            placeholderTextColor='black'
-                            value={email}
-                            onChangeText={setEmail}
-                        />
-                    </View>
-                    <View style={styles.row}>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder='password *'
-                            placeholderTextColor='black'
-                            onChangeText={setPass}
-                            value={password}
-                        />
-                    </View>
-                    <View style={styles.row}>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder='confirm password * '
-                            placeholderTextColor='black'
-                            value={cPassword}
-                            onChangeText={setCPass}
-                        />
-                    </View>
-                </View>
-                <View id="btnRow" style={styles.rowCentered}>
-                    <View style={{
-                        flex: 1,
-                        borderRadius: 5,
-                        maxWidth: 200,
-                        marginTop: 70,
-                        backgroundColor: '#688a65'
-                    }}>
-                        <Button
-                            title='create account'
-                            color="#F2F1EB"
-                            onPress={onSumbit}
+                <View id='logo' style={styles.logo}>
+                    <View style={{}}>
+                        <Image
+                            source={require('@/assets/images/splash-icon.png')}
+                            style={{
+                                width: 40 * vw,
+                                height: 40 * vw,
+                                backgroundColor: ""
+                            }}
+                            resizeMode="contain"
                         />
                     </View>
                 </View>
             </View>
-        </ScrollView>
+            <View id='enterInfo'>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='first name *'
+                        placeholderTextColor='black'
+                        onChangeText={setFirst}
+                        value={first}
+                    />
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='last name *'
+                        placeholderTextColor='black'
+                        onChangeText={setLast}
+                        value={last}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='phone number *'
+                        placeholderTextColor='black'
+                        onChangeText={setPhone}
+                        value={phone}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='email'
+                        placeholderTextColor='black'
+                        value={email}
+                        onChangeText={setEmail}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='password *'
+                        placeholderTextColor='black'
+                        onChangeText={setPass}
+                        value={password}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='confirm password * '
+                        placeholderTextColor='black'
+                        value={cPassword}
+                        onChangeText={setCPass}
+                    />
+                </View>
+            </View>
+            <View id="btnRow" style={styles.rowCentered}>
+                <View style={styles.button}>
+                    <Button
+                        title='create account'
+                        color={Platform.select({
+                            ios: '#F2F1EB',
+                            android: '#688a65',
+                            default: '#688a65'
+                        })}
+                        onPress={onSumbit}
+                    />
+                </View>
+            </View>
+        </SafeAreaView >
     );
 }

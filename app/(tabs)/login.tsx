@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Dimensions, Image, Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
@@ -104,69 +104,79 @@ export default function Login() {
     }
 
     return (
-        <ScrollView style={styles.scrollview}>
-            <View style={styles.view}>
-                <View style={styles.rowCentered}><Image
-                    source={require('C:/Users/witch/Projects/Team-2/assets/images/splash-icon.png')}
-                    style={{
-                        width: 40 * vw,
-                        height: 40 * vw,
-                        backgroundColor: ''
-                    }}
-                    resizeMode="contain"
-                /></View>
-                <View style={styles.row}>
-                    <TextInput
-                        onChangeText={setEmail} // uses setEmail funct to update variable email as users types
-                        placeholder="email * "
-                        style={styles.textInput}
-                        placeholderTextColor='black'
-                        textContentType="emailAddress"
-                        value={email} // passes email variable
-                    ></TextInput>
-                </View>
-                <View style={styles.row}>
-                    <TextInput
-                        onChangeText={setPassword} // uses setPassword funct to update variable password as users types
-                        textContentType="password"
-                        placeholder="password * "
-                        placeholderTextColor='black'
-                        style={styles.textInput}
-                        value={password} // passes password variable
-                    ></TextInput>
-                </View>
-                <View style={styles.rowEnd}>
-                    <Text style={{ height: 30 }}>forgot password?</Text>
-                </View>
-
-
-
-                <View style={{ marginTop: 90 }}>
-                    <View style={styles.rowCentered}>
-                        <View style={styles.button}>
-                            <Button
-                                title="login"
-                                color={Platform.select({ ios: '#F2F1EB', android: '#688a65' })}
-                                onPress={() => {
-                                    console.log("Pressed!");
-                                    printEmail(email), printPass(password);
-                                }} />
-                        </View>
-                    </View>
-                </View>
-                <View style={{ marginTop: 30 }}>
-                    <View style={styles.rowCentered}>
-                        <Text style={{ height: 30 }}>don't have an account?</Text>
-                    </View>
-                    <View style={styles.rowCentered}>
-                        <View style={styles.button}>
-                            <Button title="signup" color={Platform.select({ ios: '#F2F1EB', android: '#688a65' })} />
-                        </View>
-                    </View>
-                </View>
-
+        <SafeAreaView style={{
+            flex: 1,
+            backgroundColor: '#F2F1EB',
+            paddingLeft: 16,
+            paddingRight: 16,
+        }}>
+            <View style={styles.rowCentered}><Image
+                source={require('@/assets/images/splash-icon.png')}
+                style={{
+                    width: 40 * vw,
+                    height: 40 * vw,
+                    backgroundColor: ''
+                }}
+                resizeMode="contain"
+            /></View>
+            <View style={styles.row}>
+                <TextInput
+                    onChangeText={setEmail} // uses setEmail funct to update variable email as users types
+                    placeholder="email * "
+                    style={styles.textInput}
+                    placeholderTextColor='black'
+                    textContentType="emailAddress"
+                    value={email} // passes email variable
+                ></TextInput>
+            </View>
+            <View style={styles.row}>
+                <TextInput
+                    onChangeText={setPassword} // uses setPassword funct to update variable password as users types
+                    textContentType="password"
+                    placeholder="password * "
+                    placeholderTextColor='black'
+                    style={styles.textInput}
+                    value={password} // passes password variable
+                ></TextInput>
+            </View>
+            <View style={styles.rowEnd}>
+                <Text style={{ height: 30 }}>forgot password?</Text>
             </View>
 
-        </ScrollView>
+
+
+            <View style={{ marginTop: 90 }}>
+                <View style={styles.rowCentered}>
+                    <View style={styles.button}>
+                        <Button
+                            title="login"
+                            color={Platform.select({
+                                ios: '#F2F1EB',
+                                android: '#688a65',
+                                default: '#688a65'
+                            })}
+                            onPress={() => {
+                                console.log("Pressed!");
+                                printEmail(email), printPass(password);
+                            }} />
+                    </View>
+                </View>
+            </View>
+            <View style={{ marginTop: 30 }}>
+                <View style={styles.rowCentered}>
+                    <Text style={{ height: 30 }}>don't have an account?</Text>
+                </View>
+                <View style={styles.rowCentered}>
+                    <View style={styles.button}>
+                        <Button title="signup" color={Platform.select({
+                            ios: '#F2F1EB',
+                            android: '#688a65',
+                            default: '#688a65'
+                        })} />
+                    </View>
+                </View>
+            </View>
+
+        </SafeAreaView>
     );
 }
