@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Link } from 'expo-router';
+import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
@@ -16,16 +17,16 @@ const styles = StyleSheet.create({
     button: {
         flex: 1,
         borderRadius: 5,
+        minWidth: 220,
         maxWidth: 275,
-        maxHeight: 50,
-        backgroundColor: Platform.select({ ios: '#688a65', android: 'transparent' }),
+        minHeight: 50,
+        backgroundColor: Platform.select({ ios: '#688a65', android: 'transparent', default: 'transparent' }),
         borderColor: '#2c341b',
-        borderWidth: Platform.select({ ios: 2, android: 0 }),
+        borderWidth: Platform.select({ ios: 2, android: 0, default: 2 }),
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
-
     },
     columnCentered: {
         display: 'flex',
@@ -47,7 +48,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: "row",
         justifyContent: 'center',
-        borderRadius: 5,
         // backgroundColor: 'lightblue',
     },
     rowEnd: {
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
         paddingLeft: 4 * vw,
         paddingRight: 4 * vw,
         backgroundColor: '#F2F1EB',
-        // backgroundColor: '#99999C',
     },
     text: {
         color: '#33261D'
@@ -85,6 +84,59 @@ const styles = StyleSheet.create({
 
 });
 
+interface RButtonProps {
+    title: string,
+}
+
+interface CButtonProps {
+    dest: any,
+    title: string,
+}
+
+function RButton({ title }: RButtonProps) { // having issues being able to pass functions through this
+    return (
+        <TouchableOpacity >
+            <View style={{
+                display: 'flex',
+                flex: 1,
+                backgroundColor: '#688A65',
+                minWidth: 275,
+                minHeight: 35,
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <Text style={{ fontWeight: 'bold', color: '#F2F1EB', }}>{title}</Text>
+            </View>
+        </TouchableOpacity>
+    )
+}
+
+//CButton short for Customer Button
+function CButton({ dest, title }: CButtonProps) { // plan to make this an accessible API
+    return (
+        <Link href={dest} asChild>
+            <TouchableOpacity>
+                <View style={{
+                    display: 'flex',
+                    flex: 1,
+                    backgroundColor: '#688A65',
+                    minWidth: 275,
+                    minHeight: 35,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <Text
+                        style={{
+                            fontWeight: 'bold',
+                            color: '#F2F1EB',
+                        }}
+                    >{title}</Text>
+                </View>
+            </TouchableOpacity>
+        </Link>
+    );
+}
+
 // function print loginUI 
 export default function Login() {
     // create email variable and setEmail funct
@@ -95,12 +147,12 @@ export default function Login() {
 
     // printEmail take string variable 'e' and prints it
     function printEmail(e: string) { // testing function; will be replaces soon
-        console.log(e);
+        alert(e);
     }
 
     // printPass take string variable 'p' and prints it 
     function printPass(p: any) {
-        console.log(p);
+        alert(p);
     }
 
     return (
@@ -110,15 +162,25 @@ export default function Login() {
             paddingLeft: 16,
             paddingRight: 16,
         }}>
-            <View style={styles.rowCentered}><Image
-                source={require('@/assets/images/splash-icon.png')}
-                style={{
-                    width: 40 * vw,
-                    height: 40 * vw,
-                    backgroundColor: ''
-                }}
-                resizeMode="contain"
-            /></View>
+            <StatusBar
+                animated={true}
+                backgroundColor="#688a65"
+                barStyle={'light-content'}
+                showHideTransition={'fade'}
+                networkActivityIndicatorVisible={true}
+                translucent={true}
+            />
+            <View style={styles.rowCentered}>
+                <Image
+                    source={require('@/assets/images/splash-icon.png')}
+                    style={{
+                        width: 40 * vw,
+                        height: 40 * vw,
+                        backgroundColor: ''
+                    }}
+                    resizeMode="contain"
+                />
+            </View>
             <View style={styles.row}>
                 <TextInput
                     onChangeText={setEmail} // uses setEmail funct to update variable email as users types
@@ -143,40 +205,40 @@ export default function Login() {
                 <Text style={{ height: 30 }}>forgot password?</Text>
             </View>
 
-
-
-            <View style={{ marginTop: 90 }}>
+            <View style={{ marginTop: 90, marginBottom: 80 }}>
                 <View style={styles.rowCentered}>
-                    <View style={styles.button}>
-                        <Button
-                            title="login"
-                            color={Platform.select({
-                                ios: '#F2F1EB',
-                                android: '#688a65',
-                                default: '#688a65'
-                            })}
-                            onPress={() => {
-                                console.log("Pressed!");
-                                printEmail(email), printPass(password);
-                            }} />
-                    </View>
+                    <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                        onPress={() => {
+                            printPass(password);
+                            printEmail(email);
+                        }}>
+                        <View style={{
+                            display: 'flex',
+                            flex: 1,
+                            backgroundColor: '#688A65',
+                            minWidth: 275,
+                            minHeight: 35,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{ fontWeight: 'bold', color: '#F2F1EB' }}>LOGIN</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
+
             <View style={{ marginTop: 30 }}>
                 <View style={styles.rowCentered}>
                     <Text style={{ height: 30 }}>don't have an account?</Text>
                 </View>
+
                 <View style={styles.rowCentered}>
-                    <View style={styles.button}>
-                        <Button title="signup" color={Platform.select({
-                            ios: '#F2F1EB',
-                            android: '#688a65',
-                            default: '#688a65'
-                        })} />
-                    </View>
+                    <CButton
+                        dest='/(tabs)/createprofile'
+                        title='SIGNUP'
+                    />
                 </View>
             </View>
-
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }
