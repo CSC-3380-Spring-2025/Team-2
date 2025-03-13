@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Link } from 'expo-router';
+import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const { height, width, } = Dimensions.get('window');
@@ -117,6 +118,14 @@ export default function Home() {
             flex: 1,
             backgroundColor: '#F2F1EB',
         }}>
+            <StatusBar
+                animated={true}
+                backgroundColor="#688a65"
+                barStyle={'light-content'}
+                showHideTransition={'fade'}
+                networkActivityIndicatorVisible={true}
+                translucent={true}
+            />
             <View id='header' style={styles.header}>
                 <View id='pfp' style={{
                     backgroundColor: '',
@@ -164,13 +173,28 @@ export default function Home() {
                 <View style={styles.divider1}>
                     {/* <Text>Rewards</Text>
                     <Text>60 Points</Text> // this should not be hard coded!!! */}
-                    <View style={styles.rowCentered}>
-                        <View style={styles.button}>
-                            <Button
-                                title="details"
-                                onPress={changeDets}
-                                color={Platform.select({ ios: '#F2F1EB', android: '#97ac82', default: '#97ac82' })} // encapsulation???
-                            ></Button>
+                    <View style={{ marginBottom: 30 }}>
+                        <View style={styles.rowCentered}>
+                            <Link href={'/(tabs)/login'} asChild>
+                                <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                                    onPress={() => {
+                                        changeDets();
+                                    }}
+                                >
+                                    <View style={{
+                                        display: 'flex',
+                                        flex: 1,
+                                        backgroundColor: '#F2F1EB',
+                                        minWidth: 275,
+                                        minHeight: 35,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        borderRadius: 10,
+                                    }}>
+                                        <Text style={{ fontWeight: 'bold', color: '#688a65' }}>LOGIN</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </Link>
                         </View>
                     </View>
                     <View
@@ -190,23 +214,49 @@ export default function Home() {
                         </View>
                     </View>
                     <View style={styles.divider2}>
-                        <View style={styles.rowCentered}>
-                            <View style={styles.button}>
-                                <Button
-                                    title="favorites"
-                                    color={Platform.select({ ios: '#F2F1EB', android: '#688a65', default: '#688a65' })}
-
-                                ></Button>
+                        <View style={{ marginBottom: 30 }}>
+                            <View style={styles.rowCentered}>
+                                <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                                    onPress={() => {
+                                        changeDets();
+                                    }}
+                                >
+                                    <View style={{
+                                        display: 'flex',
+                                        flex: 1,
+                                        backgroundColor: '#F2F1EB',
+                                        minWidth: 275,
+                                        minHeight: 35,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        borderRadius: 10,
+                                    }}>
+                                        <Text style={{ fontWeight: 'bold', color: '#688a65' }}>FAVORITES</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.divider3}>
                             <View style={styles.rowCentered}>
-
-
                                 <View style={styles.button}>
-                                    <Button
-                                        title="recents"
-                                        color={Platform.select({ ios: '#F2F1EB', android: '#2c341b', default: '#2c341b' })}></Button>
+                                    <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                                        onPress={() => {
+                                            changeDets();
+                                        }}
+                                    >
+                                        <View style={{
+                                            display: 'flex',
+                                            flex: 1,
+                                            backgroundColor: '#F2F1EB',
+                                            minWidth: 275,
+                                            minHeight: 35,
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            borderRadius: 10,
+                                        }}>
+                                            <Text style={{ fontWeight: 'bold', color: '#688a65' }}>RECENTS</Text>
+                                        </View>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
