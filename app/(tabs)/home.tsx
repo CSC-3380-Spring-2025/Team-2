@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Dimensions, Image, Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const { height, width, } = Dimensions.get('window');
@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
         minWidth: 275,
         maxWidth: 300,
         // borderColor: 'black',
-        backgroundColor: Platform.select({ ios: 'transparent', android: 'transparent', default: 'green' }),
-        borderWidth: Platform.select({ ios: 2, android: 0 }),
+        backgroundColor: Platform.select({ ios: 'transparent', android: 'transparent', default: 'transparent' }),
+        borderWidth: Platform.select({ ios: 2, android: 0, default: 0 }),
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
         borderBottomLeftRadius: 15,
@@ -56,6 +56,8 @@ const styles = StyleSheet.create({
         minHeight: 70,
         marginBottom: 30,
         backgroundColor: '',
+        // paddingLeft: 16,
+        // paddingRight: 16,
     },
     rowCentered: {
         display: 'flex',
@@ -111,7 +113,10 @@ export default function Home() {
     }
 
     return (
-        <View style={styles.view}>
+        <SafeAreaView style={{
+            flex: 1,
+            backgroundColor: '#F2F1EB',
+        }}>
             <View id='header' style={styles.header}>
                 <View id='pfp' style={{
                     backgroundColor: '',
@@ -135,7 +140,7 @@ export default function Home() {
 
                 }}>
                     <Image
-                        source={require('C:/Users/witch/Projects/Team-2/assets/images/splash-icon.png')}
+                        source={require('@/assets/images/splash-icon.png')}
                         style={{
                             minHeight: 70,
                             minWidth: 70,
@@ -153,7 +158,8 @@ export default function Home() {
                 id='body'
                 style={{
                     display: "flex",
-                    justifyContent: "flex-end"
+                    justifyContent: "flex-end",
+                    flex: 1,
                 }}>
                 <View style={styles.divider1}>
                     {/* <Text>Rewards</Text>
@@ -163,7 +169,7 @@ export default function Home() {
                             <Button
                                 title="details"
                                 onPress={changeDets}
-                                color={Platform.select({ ios: '#F2F1EB', android: '#97ac82' })} // encapsulation???
+                                color={Platform.select({ ios: '#F2F1EB', android: '#97ac82', default: '#97ac82' })} // encapsulation???
                             ></Button>
                         </View>
                     </View>
@@ -188,7 +194,7 @@ export default function Home() {
                             <View style={styles.button}>
                                 <Button
                                     title="favorites"
-                                    color={Platform.select({ ios: '#F2F1EB', android: '#688a65' })}
+                                    color={Platform.select({ ios: '#F2F1EB', android: '#688a65', default: '#688a65' })}
 
                                 ></Button>
                             </View>
@@ -200,13 +206,13 @@ export default function Home() {
                                 <View style={styles.button}>
                                     <Button
                                         title="recents"
-                                        color={Platform.select({ ios: '#F2F1EB', android: '#2c341b' })}></Button>
+                                        color={Platform.select({ ios: '#F2F1EB', android: '#2c341b', default: '#2c341b' })}></Button>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }

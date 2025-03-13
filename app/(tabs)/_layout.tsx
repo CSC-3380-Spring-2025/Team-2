@@ -3,47 +3,64 @@ import Octicons from '@expo/vector-icons/Octicons';
 
 export default function TabsLayout() {
   return (
-    <Tabs
-        screenOptions={{
-            tabBarActiveTintColor: '#989769',
-            headerStyle: {
-                backgroundColor: '#F2F1EB',
-              },
-              headerShadowVisible: false,
-              headerTintColor: '#33261D',
-              tabBarStyle: {
-              backgroundColor: '#E7E9D0',
-              },
-        }}
+    <Tabs //Tab Bar (iOS) || Nav Bar (Android)
+      screenOptions={{
+        tabBarActiveTintColor: '#614938', //changes icon color
+        headerStyle: {
+          backgroundColor: '#EEEBDB', // changers Nav bar (ios) || App bar (android)
+        },
+        headerShadowVisible: false,
+        headerTintColor: '#614938', // changes headers color
+        tabBarStyle: {
+          backgroundColor: '#EEEBDB', // changes bottom nav bar (android)
+        },
+      }}
     >
       <Tabs.Screen
-        name="index"
+        name="index" //file.tsx name
         options={{
-            title: 'Home',
-            tabBarIcon: ({ color, focused }) => (
-                <Octicons name="home" size={24} color="#989769" />
-            ),
+          title: 'Home',
+          tabBarIcon: ({ color, focused }) => (
+            <Octicons name="home" size={24} color="#614938" />
+          ),
         }}
-        />
+      />
       <Tabs.Screen
         name="rewards"
         options={{
-            title: 'Rewards',
-            tabBarIcon: ({ color, focused }) => (
-            <Octicons name="star" size={24} color="#989769" />
-            ),
+          title: 'Rewards',
+          tabBarIcon: ({ color, focused }) => (
+            <Octicons name="star" size={24} color="#614938" />
+          ),
         }}
-        />
+      />
       <Tabs.Screen
-        name="menu" 
+        name="menu"
         options={{
-            title: 'Menu',
-            tabBarIcon: ({ color, focused }) => (
-                <Octicons name="list-unordered" size={24} color="#989769" />
-            ),
+          title: 'Menu',
+          tabBarIcon: ({ color, focused }) => (
+            <Octicons name="list-unordered" size={24} color="#614938" />
+          ),
         }}
-        />
-
+      />
+      <Tabs.Screen
+        name="login"
+        options={{
+          title: 'Login',
+          tabBarIcon: ({ color, focused }) => (
+            <Octicons name="sign-in" size={24} color="#614938" />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="createprofile"
+        options={{
+          title: 'signup',
+          tabBarIcon: ({ color, focused }) => (
+            <Octicons name="plus-circle" size={24} color="#614938" />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
