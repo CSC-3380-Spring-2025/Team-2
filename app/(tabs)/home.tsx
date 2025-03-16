@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'expo-router';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { auth } from '@/FirebaseConfig';
+import { getAuth } from 'firebase/auth';
+import { router } from 'expo-router';
 
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
@@ -113,6 +116,12 @@ export default function Home() {
         setDets(dets => !dets);
     }
 
+    getAuth().onAuthStateChanged((user) => {
+        if (!user) {
+            router.replace('/(tabs)/login')
+        };
+    });
+
     return (
         <SafeAreaView style={{
             flex: 1,
@@ -148,19 +157,21 @@ export default function Home() {
                     backgroundColor: '',
 
                 }}>
-                    <Image
-                        source={require('@/assets/images/splash-icon.png')}
-                        style={{
-                            minHeight: 70,
-                            minWidth: 70,
-                            width: 70,
-                            height: 70,
-                            maxHeight: 70,
-                            maxWidth: 70,
-                            backgroundColor: ''
-                        }}
-                        resizeMode="contain"
-                    />
+                    <TouchableOpacity onPress={() => auth.signOut()}> {/*signs the user out to login page */}
+                        <Image
+                            source={require('@/assets/images/splash-icon.png')}
+                            style={{
+                                minHeight: 70,
+                                minWidth: 70,
+                                width: 70,
+                                height: 70,
+                                maxHeight: 70,
+                                maxWidth: 70,
+                                backgroundColor: ''
+                            }}
+                            resizeMode="contain"
+                        />
+                    </TouchableOpacity>
                 </View>
             </View>
             <View

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { getAuth } from 'firebase/auth';
 
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;

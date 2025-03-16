@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'expo-router';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { router } from 'expo-router';
+import { auth } from '@/FirebaseConfig';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
@@ -155,6 +158,29 @@ export default function Login() {
         alert(p);
     }
 
+    const signIn = async () => {
+        try {
+            const user = await signInWithEmailAndPassword(auth, email, password);
+            if (user) {
+                router.replace('/(tabs)/home');
+            };
+        } catch (error: any) {
+            console.log(error);
+            alert("Sign in failed\nPlease try again");
+        }
+    }
+    const signUp = async () => {
+        try {
+            const user = await createUserWithEmailAndPassword(auth, email, password);
+            if (user) {
+                router.replace('/(tabs)/home');
+            };
+        } catch (error: any) {
+            console.log(error);
+            alert("Sign in failed\nPlease try again");
+        }
+    }
+
     return (
         <SafeAreaView style={{
             flex: 1,
@@ -209,8 +235,7 @@ export default function Login() {
                 <View style={styles.rowCentered}>
                     <TouchableOpacity // if we have time, we should design a button component that has all these features.
                         onPress={() => {
-                            printPass(password);
-                            printEmail(email);
+                            signIn();
                         }}>
                         <View style={{
                             display: 'flex',
@@ -233,10 +258,26 @@ export default function Login() {
                 </View>
 
                 <View style={styles.rowCentered}>
-                    <CButton
+                    <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                        onPress={() => {
+                            signUp();
+                        }}>
+                        <View style={{
+                            display: 'flex',
+                            flex: 1,
+                            backgroundColor: '#688A65',
+                            minWidth: 275,
+                            minHeight: 35,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{ fontWeight: 'bold', color: '#F2F1EB' }}>SIGNUP</Text>
+                        </View>
+                    </TouchableOpacity>
+                    {/* <CButton
                         dest='/(tabs)/createprofile'
                         title='SIGNUP'
-                    />
+                    /> */}
                 </View>
             </View>
         </SafeAreaView >
