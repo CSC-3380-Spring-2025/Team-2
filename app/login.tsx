@@ -89,8 +89,8 @@ interface RButtonProps {
 }
 
 interface CButtonProps {
-    dest: any,
-    title: string,
+    dest: string;
+    title: string;
 }
 
 function RButton({ title }: RButtonProps) { // having issues being able to pass functions through this
@@ -234,8 +234,8 @@ export default function Login() {
 
                 <View style={styles.rowCentered}>
                     <CButton
-                        dest='/(tabs)/createprofile'
-                        title='SIGNUP'
+                        dest='/createprofile'
+                        title='Sign Up'
                     />
                 </View>
             </View>

@@ -149,14 +149,14 @@ export default function Home() {
 
                 }}>
                     <Image
-                        source={require('@/assets/images/splash-icon.png')}
+                        source={require('@/assets/images/cart.png')}
                         style={{
-                            minHeight: 70,
-                            minWidth: 70,
-                            width: 70,
-                            height: 70,
-                            maxHeight: 70,
-                            maxWidth: 70,
+                            minHeight: 50,
+                            minWidth: 50,
+                            width: 50,
+                            height: 50,
+                            maxHeight: 50,
+                            maxWidth: 50,
                             backgroundColor: ''
                         }}
                         resizeMode="contain"
@@ -175,7 +175,7 @@ export default function Home() {
                     <Text>60 Points</Text> // this should not be hard coded!!! */}
                     <View style={{ marginBottom: 30 }}>
                         <View style={styles.rowCentered}>
-                            <Link href={'/(tabs)/login'} asChild>
+                            <Link href={'/login'} asChild>
                                 <TouchableOpacity // if we have time, we should design a button component that has all these features.
                                     onPress={() => {
                                         changeDets();
