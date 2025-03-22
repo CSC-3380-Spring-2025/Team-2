@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { router, useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {createTheme } from '@mui/material/styles'
+// import {createTheme } from '@mui/material/styles'
 import { ThemeProvider } from '@react-navigation/native';
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     backBtn: {
         maxHeight: 50,
         maxWidth: 70,
-        backgroundColor: '',
         position: 'absolute',
         left: 10,
         top: 10,
@@ -111,33 +110,33 @@ const styles = StyleSheet.create({
 });
 
 interface PCButtonProps { //PC short for profile creation
-    dest: string;
+    dest: any;
     title: string;
     color?: string;
 }
 
 function PCButton({ dest, title }: PCButtonProps) {
     return (
-        <Link href={dest} asChild>
-            <TouchableOpacity>
-                <View style={{
-                    display: 'flex',
-                    flex: 1,
-                    backgroundColor: '#688A65',
-                    minWidth: 275,
-                    minHeight: 35,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text
-                        style={{
-                            fontWeight: 'bold',
-                            color: '#F2F1EB',
-                        }}
-                    >{title}</Text>
-                </View>
-            </TouchableOpacity>
-        </Link>
+
+        <TouchableOpacity onPress={() => { router.navigate(dest) }}>
+            <View style={{
+                display: 'flex',
+                flex: 1,
+                backgroundColor: '#688A65',
+                minWidth: 275,
+                minHeight: 35,
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <Text
+                    style={{
+                        fontWeight: 'bold',
+                        color: '#F2F1EB',
+                    }}
+                >{title}</Text>
+            </View>
+        </TouchableOpacity>
+
     );
 }
 
