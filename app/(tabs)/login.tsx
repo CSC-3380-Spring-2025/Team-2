@@ -235,7 +235,8 @@ export default function Login() {
                 <View style={styles.rowCentered}>
                     <TouchableOpacity // if we have time, we should design a button component that has all these features.
                         onPress={() => {
-                            signIn();
+                            // signIn();
+                            router.navigate('/(tabs)/home')
                         }}>
                         <View style={{
                             display: 'flex',
@@ -260,7 +261,8 @@ export default function Login() {
                 <View style={styles.rowCentered}>
                     <TouchableOpacity // if we have time, we should design a button component that has all these features.
                         onPress={() => {
-                            signUp();
+                            // signUp();
+                            router.push('/(tabs)/createprofile');
                         }}>
                         <View style={{
                             display: 'flex',

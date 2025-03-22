@@ -186,26 +186,24 @@ export default function Home() {
                     <Text>60 Points</Text> // this should not be hard coded!!! */}
                     <View style={{ marginBottom: 30 }}>
                         <View style={styles.rowCentered}>
-                            <Link href={'/(tabs)/login'} asChild>
-                                <TouchableOpacity // if we have time, we should design a button component that has all these features.
-                                    onPress={() => {
-                                        changeDets();
-                                    }}
-                                >
-                                    <View style={{
-                                        display: 'flex',
-                                        flex: 1,
-                                        backgroundColor: '#F2F1EB',
-                                        minWidth: 275,
-                                        minHeight: 35,
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        borderRadius: 10,
-                                    }}>
-                                        <Text style={{ fontWeight: 'bold', color: '#688a65' }}>LOGIN</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </Link>
+                            <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                                onPress={() => {
+                                    changeDets();
+                                }}
+                            >
+                                <View style={{
+                                    display: 'flex',
+                                    flex: 1,
+                                    backgroundColor: '#F2F1EB',
+                                    minWidth: 275,
+                                    minHeight: 35,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    borderRadius: 10,
+                                }}>
+                                    <Text style={{ fontWeight: 'bold', color: '#688a65' }}>DETAILS</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View
@@ -228,9 +226,6 @@ export default function Home() {
                         <View style={{ marginBottom: 30 }}>
                             <View style={styles.rowCentered}>
                                 <TouchableOpacity // if we have time, we should design a button component that has all these features.
-                                    onPress={() => {
-                                        changeDets();
-                                    }}
                                 >
                                     <View style={{
                                         display: 'flex',
@@ -251,9 +246,6 @@ export default function Home() {
                             <View style={styles.rowCentered}>
                                 <View style={styles.button}>
                                     <TouchableOpacity // if we have time, we should design a button component that has all these features.
-                                        onPress={() => {
-                                            changeDets();
-                                        }}
                                     >
                                         <View style={{
                                             display: 'flex',

@@ -1,15 +1,159 @@
 import React from 'react';
-import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
 const vh = height / 100;
 
+import { router } from 'expo-router';
+
+export default function CreateProfile() {
+    let [first, setFirst] = React.useState('');
+    let [last, setLast] = React.useState('');
+    let [phone, setPhone] = React.useState('');
+    let [email, setEmail] = React.useState('');
+    let [password, setPass] = React.useState('');
+    let [cPassword, setCPass] = React.useState('');
+
+    function onSumbit() { // functional
+        alert("First: " + first + "\nLast: " + last + "\nPhone: " + phone + "\nEmail: " + email + "\nPassword: " + password + "\nCPassword: " + cPassword);
+    }
+
+    return (
+        <SafeAreaView style={{
+            flex: 1,
+            backgroundColor: '#F2F1EB',
+            paddingLeft: 16,
+            paddingRight: 16,
+        }}>
+            <StatusBar
+                animated={true}
+                backgroundColor="#688a65"
+                barStyle={'default'}
+                showHideTransition={'fade'}
+                // hidden={hidden}
+                networkActivityIndicatorVisible={true}
+                translucent={true}
+            />
+            <View style={styles.rowCentered}>
+
+                <TouchableOpacity
+                    id='backBtn'
+                    style={{
+                        maxHeight: 50,
+                        maxWidth: 70,
+                        position: 'absolute',
+                        left: 10,
+                        top: 10,
+                        zIndex: 1,
+                    }}
+                    onPress={() => {
+                        router.back();
+                    }}
+                >
+                    <Ionicons name="arrow-back-circle-outline" size={50} color="#614938" />
+                </TouchableOpacity>
+
+
+
+                <View id='logo' style={styles.logo}>
+                    <View style={{}}>
+                        <Image
+                            source={require('@/assets/images/splash-icon.png')}
+                            style={{
+                                width: 40 * vw,
+                                height: 40 * vw,
+                                backgroundColor: ""
+                            }}
+                            resizeMode="contain"
+                        />
+                    </View>
+                </View>
+            </View>
+            <View id='enterInfo'>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='first name *'
+                        placeholderTextColor='black'
+                        onChangeText={setFirst}
+                        value={first}
+                    />
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='last name *'
+                        placeholderTextColor='black'
+                        onChangeText={setLast}
+                        value={last}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='phone number *'
+                        placeholderTextColor='black'
+                        onChangeText={setPhone}
+                        value={phone}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='email'
+                        placeholderTextColor='black'
+                        value={email}
+                        onChangeText={setEmail}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='password *'
+                        placeholderTextColor='black'
+                        onChangeText={setPass}
+                        value={password}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder='confirm password * '
+                        placeholderTextColor='black'
+                        value={cPassword}
+                        onChangeText={setCPass}
+                    />
+                </View>
+            </View>
+            <View id="btnRow" style={styles.rowCentered}>
+                <View style={styles.button}>
+                    <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                        onPress={() => {
+                            // signIn();
+                            alert('pressed')
+                            router.navigate('/(tabs)/home')
+                        }}>
+                        <View style={{
+                            display: 'flex',
+                            flex: 1,
+                            backgroundColor: '#688A65',
+                            minWidth: 275,
+                            minHeight: 35,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{ fontWeight: 'bold', color: '#F2F1EB' }}>CREATE ACCOUNT</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </SafeAreaView >
+    );
+}
+
 const styles = StyleSheet.create({
     backBtn: {
         maxHeight: 50,
         maxWidth: 70,
-        backgroundColor: '',
         position: 'absolute',
         left: 10,
         top: 10,
@@ -83,122 +227,3 @@ const styles = StyleSheet.create({
     },
 
 });
-
-export default function CreateProfile() {
-    let [first, setFirst] = React.useState('');
-    let [last, setLast] = React.useState('');
-    let [phone, setPhone] = React.useState('');
-    let [email, setEmail] = React.useState('');
-    let [password, setPass] = React.useState('');
-    let [cPassword, setCPass] = React.useState('');
-
-    function onSumbit() { // functional
-        alert("First: " + first + "\nLast: " + last + "\nPhone: " + phone + "\nEmail: " + email + "\nPassword: " + password + "\nCPassword: " + cPassword);
-    }
-
-    return (
-        <SafeAreaView style={{
-            flex: 1,
-            backgroundColor: '#F2F1EB',
-            paddingLeft: 16,
-            paddingRight: 16,
-        }}>
-            <StatusBar
-                animated={true}
-                backgroundColor="#688a65"
-                barStyle={'default'}
-                showHideTransition={'fade'}
-                // hidden={hidden}
-                networkActivityIndicatorVisible={true}
-                translucent={true}
-            />
-            <View style={styles.rowCentered}>
-                <View
-                    id='backBtn'
-                    style={styles.backBtn}>
-                    <Ionicons name='arrow-back-circle-outline' size={50} color='#614938' />
-                </View>
-                <View id='logo' style={styles.logo}>
-                    <View style={{}}>
-                        <Image
-                            source={require('@/assets/images/splash-icon.png')}
-                            style={{
-                                width: 40 * vw,
-                                height: 40 * vw,
-                                backgroundColor: ""
-                            }}
-                            resizeMode="contain"
-                        />
-                    </View>
-                </View>
-            </View>
-            <View id='enterInfo'>
-                <View style={styles.row}>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='first name *'
-                        placeholderTextColor='black'
-                        onChangeText={setFirst}
-                        value={first}
-                    />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='last name *'
-                        placeholderTextColor='black'
-                        onChangeText={setLast}
-                        value={last}
-                    />
-                </View>
-                <View style={styles.row}>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='phone number *'
-                        placeholderTextColor='black'
-                        onChangeText={setPhone}
-                        value={phone}
-                    />
-                </View>
-                <View style={styles.row}>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='email'
-                        placeholderTextColor='black'
-                        value={email}
-                        onChangeText={setEmail}
-                    />
-                </View>
-                <View style={styles.row}>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='password *'
-                        placeholderTextColor='black'
-                        onChangeText={setPass}
-                        value={password}
-                    />
-                </View>
-                <View style={styles.row}>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder='confirm password * '
-                        placeholderTextColor='black'
-                        value={cPassword}
-                        onChangeText={setCPass}
-                    />
-                </View>
-            </View>
-            <View id="btnRow" style={styles.rowCentered}>
-                <View style={styles.button}>
-                    <Button
-                        title='create account'
-                        color={Platform.select({
-                            ios: '#F2F1EB',
-                            android: '#688a65',
-                            default: '#688a65'
-                        })}
-                        onPress={onSumbit}
-                    />
-                </View>
-            </View>
-        </SafeAreaView >
-    );
-}
