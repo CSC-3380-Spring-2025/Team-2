@@ -283,14 +283,14 @@ export default function OrderHistory() {
 
                 }}>
                     <Image
-                        source={require('@/assets/images/splash-icon.png')}
+                        source={require('@/assets/images/cart.png')}
                         style={{
-                            minHeight: 70,
-                            minWidth: 70,
-                            width: 70,
-                            height: 70,
-                            maxHeight: 70,
-                            maxWidth: 70,
+                            minHeight: 50,
+                            minWidth: 50,
+                            width: 50,
+                            height: 50,
+                            maxHeight: 50,
+                            maxWidth: 50,
                             backgroundColor: ''
                         }}
                         resizeMode="contain"

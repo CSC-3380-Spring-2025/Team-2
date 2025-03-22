@@ -87,58 +87,58 @@ const styles = StyleSheet.create({
 
 });
 
-interface RButtonProps {
-    title: string,
-}
+// interface RButtonProps {
+//     title: string,
+// }
 
-interface CButtonProps {
-    dest: any,
-    title: string,
-}
+// interface CButtonProps {
+//     dest: string;
+//     title: string;
+// }
 
-function RButton({ title }: RButtonProps) { // having issues being able to pass functions through this
-    return (
-        <TouchableOpacity >
-            <View style={{
-                display: 'flex',
-                flex: 1,
-                backgroundColor: '#688A65',
-                minWidth: 275,
-                minHeight: 35,
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <Text style={{ fontWeight: 'bold', color: '#F2F1EB', }}>{title}</Text>
-            </View>
-        </TouchableOpacity>
-    )
-}
+// function RButton({ title }: RButtonProps) { // having issues being able to pass functions through this
+//     return (
+//         <TouchableOpacity >
+//             <View style={{
+//                 display: 'flex',
+//                 flex: 1,
+//                 backgroundColor: '#688A65',
+//                 minWidth: 275,
+//                 minHeight: 35,
+//                 justifyContent: 'center',
+//                 alignItems: 'center'
+//             }}>
+//                 <Text style={{ fontWeight: 'bold', color: '#F2F1EB', }}>{title}</Text>
+//             </View>
+//         </TouchableOpacity>
+//     )
+// }
 
 //CButton short for Customer Button
-function CButton({ dest, title }: CButtonProps) { // plan to make this an accessible API
-    return (
-        <Link href={dest} asChild>
-            <TouchableOpacity>
-                <View style={{
-                    display: 'flex',
-                    flex: 1,
-                    backgroundColor: '#688A65',
-                    minWidth: 275,
-                    minHeight: 35,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text
-                        style={{
-                            fontWeight: 'bold',
-                            color: '#F2F1EB',
-                        }}
-                    >{title}</Text>
-                </View>
-            </TouchableOpacity>
-        </Link>
-    );
-}
+// function CButton({ dest, title }: CButtonProps) { // plan to make this an accessible API
+//     return (
+//         <Link href={dest} asChild>
+//             <TouchableOpacity>
+//                 <View style={{
+//                     display: 'flex',
+//                     flex: 1,
+//                     backgroundColor: '#688A65',
+//                     minWidth: 275,
+//                     minHeight: 35,
+//                     justifyContent: 'center',
+//                     alignItems: 'center'
+//                 }}>
+//                     <Text
+//                         style={{
+//                             fontWeight: 'bold',
+//                             color: '#F2F1EB',
+//                         }}
+//                     >{title}</Text>
+//                 </View>
+//             </TouchableOpacity>
+//         </Link>
+//     );
+// }
 
 // function print loginUI 
 export default function Login() {
@@ -276,10 +276,6 @@ export default function Login() {
                             <Text style={{ fontWeight: 'bold', color: '#F2F1EB' }}>SIGNUP</Text>
                         </View>
                     </TouchableOpacity>
-                    {/* <CButton
-                        dest='/(tabs)/createprofile'
-                        title='SIGNUP'
-                    /> */}
                 </View>
             </View>
         </SafeAreaView >

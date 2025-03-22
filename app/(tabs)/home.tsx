@@ -159,7 +159,7 @@ export default function Home() {
                 }}>
                     <TouchableOpacity onPress={() => auth.signOut()}> {/*signs the user out to login page */}
                         <Image
-                            source={require('@/assets/images/splash-icon.png')}
+                            source={require('@/assets/images/cart.png')}
                             style={{
                                 minHeight: 70,
                                 minWidth: 70,
