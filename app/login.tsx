@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'expo-router';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { router } from 'expo-router';
+import { auth } from '@/FirebaseConfig';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
@@ -84,58 +87,58 @@ const styles = StyleSheet.create({
 
 });
 
-interface RButtonProps {
-    title: string,
-}
+// interface RButtonProps {
+//     title: string,
+// }
 
-interface CButtonProps {
-    dest: string;
-    title: string;
-}
+// interface CButtonProps {
+//     dest: string;
+//     title: string;
+// }
 
-function RButton({ title }: RButtonProps) { // having issues being able to pass functions through this
-    return (
-        <TouchableOpacity >
-            <View style={{
-                display: 'flex',
-                flex: 1,
-                backgroundColor: '#688A65',
-                minWidth: 275,
-                minHeight: 35,
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <Text style={{ fontWeight: 'bold', color: '#F2F1EB', }}>{title}</Text>
-            </View>
-        </TouchableOpacity>
-    )
-}
+// function RButton({ title }: RButtonProps) { // having issues being able to pass functions through this
+//     return (
+//         <TouchableOpacity >
+//             <View style={{
+//                 display: 'flex',
+//                 flex: 1,
+//                 backgroundColor: '#688A65',
+//                 minWidth: 275,
+//                 minHeight: 35,
+//                 justifyContent: 'center',
+//                 alignItems: 'center'
+//             }}>
+//                 <Text style={{ fontWeight: 'bold', color: '#F2F1EB', }}>{title}</Text>
+//             </View>
+//         </TouchableOpacity>
+//     )
+// }
 
 //CButton short for Customer Button
-function CButton({ dest, title }: CButtonProps) { // plan to make this an accessible API
-    return (
-        <Link href={dest} asChild>
-            <TouchableOpacity>
-                <View style={{
-                    display: 'flex',
-                    flex: 1,
-                    backgroundColor: '#688A65',
-                    minWidth: 275,
-                    minHeight: 35,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text
-                        style={{
-                            fontWeight: 'bold',
-                            color: '#F2F1EB',
-                        }}
-                    >{title}</Text>
-                </View>
-            </TouchableOpacity>
-        </Link>
-    );
-}
+// function CButton({ dest, title }: CButtonProps) { // plan to make this an accessible API
+//     return (
+//         <Link href={dest} asChild>
+//             <TouchableOpacity>
+//                 <View style={{
+//                     display: 'flex',
+//                     flex: 1,
+//                     backgroundColor: '#688A65',
+//                     minWidth: 275,
+//                     minHeight: 35,
+//                     justifyContent: 'center',
+//                     alignItems: 'center'
+//                 }}>
+//                     <Text
+//                         style={{
+//                             fontWeight: 'bold',
+//                             color: '#F2F1EB',
+//                         }}
+//                     >{title}</Text>
+//                 </View>
+//             </TouchableOpacity>
+//         </Link>
+//     );
+// }
 
 // function print loginUI 
 export default function Login() {
@@ -153,6 +156,29 @@ export default function Login() {
     // printPass take string variable 'p' and prints it 
     function printPass(p: any) {
         alert(p);
+    }
+
+    const signIn = async () => {
+        try {
+            const user = await signInWithEmailAndPassword(auth, email, password);
+            if (user) {
+                router.replace('/(tabs)/home');
+            };
+        } catch (error: any) {
+            console.log(error);
+            alert("Sign in failed\nPlease try again");
+        }
+    }
+    const signUp = async () => {
+        try {
+            const user = await createUserWithEmailAndPassword(auth, email, password);
+            if (user) {
+                router.replace('/(tabs)/home');
+            };
+        } catch (error: any) {
+            console.log(error);
+            alert("Sign in failed\nPlease try again");
+        }
     }
 
     return (
@@ -209,8 +235,8 @@ export default function Login() {
                 <View style={styles.rowCentered}>
                     <TouchableOpacity // if we have time, we should design a button component that has all these features.
                         onPress={() => {
-                            printPass(password);
-                            printEmail(email);
+                            // signIn();
+                            router.navigate('/(tabs)/home')
                         }}>
                         <View style={{
                             display: 'flex',
@@ -233,10 +259,23 @@ export default function Login() {
                 </View>
 
                 <View style={styles.rowCentered}>
-                    <CButton
-                        dest='/createprofile'
-                        title='Sign Up'
-                    />
+                    <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                        onPress={() => {
+                            // signUp();
+                            router.push('/(tabs)/createprofile');
+                        }}>
+                        <View style={{
+                            display: 'flex',
+                            flex: 1,
+                            backgroundColor: '#688A65',
+                            minWidth: 275,
+                            minHeight: 35,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{ fontWeight: 'bold', color: '#F2F1EB' }}>SIGNUP</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView >

@@ -1,13 +1,12 @@
 import React from 'react';
 import { Text, View, StyleSheet } from "react-native";
-import { Link, Redirect } from 'expo-router';
-import Login from "./login";
-import Profile from './createprofile';
+import { Link } from 'expo-router';
 import Home from './(tabs)/home';
 
-
 export default function Index() {
-  return <Redirect href="/login"/>;
+  return (
+    <Home />
+  );
 }
 
 const styles = StyleSheet.create({
