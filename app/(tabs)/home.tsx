@@ -118,7 +118,7 @@ export default function Home() {
 
     getAuth().onAuthStateChanged((user) => {
         if (!user) {
-            router.replace('/(tabs)/login')
+            router.replace('/login')
         };
     });
 
