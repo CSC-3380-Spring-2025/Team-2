@@ -117,11 +117,11 @@ export default function Home() {
         setDets(dets => !dets);
     }
 
-    getAuth().onAuthStateChanged((user) => {
+   /* getAuth().onAuthStateChanged((user) => {
         if (!user) {
             router.replace('/login')
         };
-    });
+    });*/
 
     return (
         <SafeAreaView style={{

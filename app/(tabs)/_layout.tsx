@@ -18,7 +18,7 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
-        name="index" //file.tsx name
+        name="home" //file.tsx name
         options={{
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
