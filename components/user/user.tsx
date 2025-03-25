@@ -1,4 +1,4 @@
-import Merchandise from "../merchandise/merchandise";
+import Merchandise from "../merchandise/merchandisee
 
 export default class User {
     // USER ATTRIBUTES

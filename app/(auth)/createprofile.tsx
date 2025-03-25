@@ -270,7 +270,7 @@ export default function CreateProfile() {
                 <View style={styles.button}>
                     <PCButton
                         title='create account'
-                        dest='/(tabs)/home.tsx'
+                        dest='home.tsx'
                         color={Platform.select({
                             ios: '#F2F1EB',
                             android: '#688a65',

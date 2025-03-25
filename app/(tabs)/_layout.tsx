@@ -1,3 +1,4 @@
+//layout file for bottom navigation bar
 import { Tabs } from 'expo-router';
 import Octicons from '@expo/vector-icons/Octicons';
 
