@@ -1,3 +1,4 @@
+//home screen
 import React from 'react';
 import { Link } from 'expo-router';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -116,11 +117,11 @@ export default function Home() {
         setDets(dets => !dets);
     }
 
-    getAuth().onAuthStateChanged((user) => {
+   /* getAuth().onAuthStateChanged((user) => {
         if (!user) {
             router.replace('/login')
         };
-    });
+    });*/
 
     return (
         <SafeAreaView style={{
@@ -225,41 +226,45 @@ export default function Home() {
                     <View style={styles.divider2}>
                         <View style={{ marginBottom: 30 }}>
                             <View style={styles.rowCentered}>
-                                <TouchableOpacity // if we have time, we should design a button component that has all these features.
-                                >
-                                    <View style={{
-                                        display: 'flex',
-                                        flex: 1,
-                                        backgroundColor: '#F2F1EB',
-                                        minWidth: 275,
-                                        minHeight: 35,
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        borderRadius: 10,
-                                    }}>
-                                        <Text style={{ fontWeight: 'bold', color: '#688a65' }}>FAVORITES</Text>
-                                    </View>
-                                </TouchableOpacity>
+                                <View /*style={styles.button}*/>
+                                    <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                                        onPress={() => router.push('/favorites')}>
+                                            <View style={{
+                                                display: 'flex',
+                                                flex: 1,
+                                                backgroundColor: '#F2F1EB',
+                                                minWidth: 275,
+                                                minHeight: 35,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                borderRadius: 10,
+                                            }}>
+                                            <Text style={{ fontWeight: 'bold', color: '#688a65' }}>FAVORITES</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                         <View style={styles.divider3}>
-                            <View style={styles.rowCentered}>
-                                <View style={styles.button}>
-                                    <TouchableOpacity // if we have time, we should design a button component that has all these features.
-                                    >
-                                        <View style={{
-                                            display: 'flex',
-                                            flex: 1,
-                                            backgroundColor: '#F2F1EB',
-                                            minWidth: 275,
-                                            minHeight: 35,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            borderRadius: 10,
-                                        }}>
-                                            <Text style={{ fontWeight: 'bold', color: '#688a65' }}>RECENTS</Text>
-                                        </View>
-                                    </TouchableOpacity>
+                            <View style={{ marginBottom: 30 }}>
+                                <View style={styles.rowCentered}>
+                                    <View /*style={styles.button}*/>
+                                        <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                                            onPress={() => router.push('/recents')}>
+                                                <View style={{
+                                                    display: 'flex',
+                                                    flex: 1,
+                                                    backgroundColor: '#F2F1EB',
+                                                    minWidth: 275,
+                                                    minHeight: 35,
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    borderRadius: 10,
+                                                }}>
+                                                <Text style={{ fontWeight: 'bold', color: '#688a65' }}>RECENTS</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
                         </View>

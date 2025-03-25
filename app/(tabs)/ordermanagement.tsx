@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Dimensions, FlatList, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
-import Merchandise from '../components/merchandise/merchandise';
+import Merchandise from '../../components/merchandise/merchandise';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { getAuth } from 'firebase/auth';

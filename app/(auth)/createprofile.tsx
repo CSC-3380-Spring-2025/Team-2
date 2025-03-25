@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
 
 });
 
-interface PCButtonProps { //PC short for profile creation
+/*interface PCButtonProps { //PC short for profile creation
     dest: string;
     title: string;
     color?: string;
@@ -118,7 +118,7 @@ interface PCButtonProps { //PC short for profile creation
 function PCButton({ dest, title }: PCButtonProps) {
     return (
         <Link href={dest as RelativePathString} asChild>
-            <TouchableOpacity /*onPress={() => { router.navigate(dest) }}*/ >
+            <TouchableOpacity /*onPress={() => { router.navigate(dest) }} >
                 <View style={{
                     display: 'flex',
                     flex: 1,
@@ -138,7 +138,7 @@ function PCButton({ dest, title }: PCButtonProps) {
             </TouchableOpacity>
     </Link>
     );
-}
+} */
 
 export default function CreateProfile() {
     const router = useRouter();
@@ -265,19 +265,18 @@ export default function CreateProfile() {
                         onChangeText={setCPass}
                     />
                 </View>
-            </View>
-            <View /*id="btnRow"*/ style={styles.rowCentered}>
-                <View style={styles.button}>
-                    <PCButton
-                        title='create account'
-                        dest='/(tabs)/home.tsx'
-                        color={Platform.select({
-                            ios: '#F2F1EB',
-                            android: '#688a65',
-                            default: '#688a65'
-                        })}
-                    />
-                </View>
+                <TouchableOpacity
+                style={{
+                    backgroundColor: '#688A65',
+                    paddingVertical: 12,
+                    paddingHorizontal: 32,
+                    borderRadius: 8,
+                    alignItems: 'center',
+                    marginTop: 16,
+                }}
+                onPress={() => router.push('/home')}>
+                    <Text style={{ color: '#F2F1EB', fontSize: 16, fontWeight: 'bold' }}>Create Profile</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView >
     );
