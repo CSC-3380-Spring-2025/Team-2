@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, View, StyleSheet } from "react-native";
 import { Link } from 'expo-router';
-import Home from './(tabs)/home';
+import Login from './(auth)/login';
 
 export default function Index() {
   return (
-    <Home />
+    <Login />
   );
 }
 
