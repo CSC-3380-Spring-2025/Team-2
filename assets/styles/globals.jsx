@@ -1,18 +1,22 @@
 import { StyleSheet } from 'react-native';
 
 export const globalStyles = StyleSheet.create({
-    container: {
+    header: {
         flex: 1,
-        padding: 20
+        padding: 10,
+        //backgroundColor: '#000000',
+        borderWidth: 4
     },
     headerText: {
-        fontFamily: 'poppins',
-        fontSize: 20,
-        color: '#000000'
+        ///fontFamily: 'poppins',
+        fontSize: 30,
+        textAlign: 'center',
+        textAlignVertical: 'top',
+        color: '#ffffff'
     },
     headerText2: {
-        fontFamily: 'poppins',
+        //fontFamily: 'poppins',
         fontSize: 18,
         color: '#000000'
-    },
+    }
 })
