@@ -1,15 +1,40 @@
 import React from 'react';
-import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { router, useRouter, Link, RelativePathString } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+// import {createTheme } from '@mui/material/styles'
+import { ThemeProvider } from '@react-navigation/native';
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
 const vh = height / 100;
+
+/* trying to implement a date picker
+const newTheme = (theme) => createTheme({
+    ...theme,
+    components: {
+        MuiPickersCalendarHeader: {
+            styleOverrides: {
+                root: {
+                    color: '#F2F1EB',
+                    borderRadius: '0',
+                    borderWidth: '1',
+                    borderColor: '#e91e63',
+                    border: '1 solid',
+                    backgroundColor: '#F2F1EB'
+                }
+            }
+        }
+    }
+})
+<ThemeProvider theme={newTheme}>
+    <DesktopDatePicker />
+</ThemeProvider>*/
 
 const styles = StyleSheet.create({
     backBtn: {
         maxHeight: 50,
         maxWidth: 70,
-        backgroundColor: '',
         position: 'absolute',
         left: 10,
         top: 10,
@@ -84,16 +109,62 @@ const styles = StyleSheet.create({
 
 });
 
+/*interface PCButtonProps { //PC short for profile creation
+    dest: string;
+    title: string;
+    color?: string;
+}
+
+function PCButton({ dest, title }: PCButtonProps) {
+    return (
+        <Link href={dest as RelativePathString} asChild>
+            <TouchableOpacity /*onPress={() => { router.navigate(dest) }} >
+                <View style={{
+                    display: 'flex',
+                    flex: 1,
+                    backgroundColor: '#688A65',
+                    minWidth: 275,
+                    minHeight: 35,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <Text
+                        style={{
+                            fontWeight: 'bold',
+                            color: '#F2F1EB',
+                        }}
+                    >{title}</Text>
+                </View>
+            </TouchableOpacity>
+    </Link>
+    );
+} */
+
 export default function CreateProfile() {
+    const router = useRouter();
     let [first, setFirst] = React.useState('');
     let [last, setLast] = React.useState('');
+    let [bday, setBday] = React.useState('');
     let [phone, setPhone] = React.useState('');
     let [email, setEmail] = React.useState('');
     let [password, setPass] = React.useState('');
     let [cPassword, setCPass] = React.useState('');
 
-    function onSumbit() { // functional
-        alert("First: " + first + "\nLast: " + last + "\nPhone: " + phone + "\nEmail: " + email + "\nPassword: " + password + "\nCPassword: " + cPassword);
+    async function onSumbit() { // functional
+        try {
+            const userProfile = {
+                first,
+                last,
+                bday,
+                phone,
+                email,
+                password,
+            };
+            await AsyncStorage.setItem('userProfile', JSON.stringify(userProfile));
+            alert('Account created!');
+        } catch (e) {
+            console.error('Account creation failed :(', e);
+        }
     }
 
     return (
@@ -152,6 +223,15 @@ export default function CreateProfile() {
                 <View style={styles.row}>
                     <TextInput
                         style={styles.textInput}
+                        placeholder='birthday *'
+                        placeholderTextColor='black'
+                        onChangeText={setBday}
+                        value={bday}
+                    />
+                </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.textInput}
                         placeholder='phone number *'
                         placeholderTextColor='black'
                         onChangeText={setPhone}
@@ -185,19 +265,18 @@ export default function CreateProfile() {
                         onChangeText={setCPass}
                     />
                 </View>
-            </View>
-            <View id="btnRow" style={styles.rowCentered}>
-                <View style={styles.button}>
-                    <Button
-                        title='create account'
-                        color={Platform.select({
-                            ios: '#F2F1EB',
-                            android: '#688a65',
-                            default: '#688a65'
-                        })}
-                        onPress={onSumbit}
-                    />
-                </View>
+                <TouchableOpacity
+                style={{
+                    backgroundColor: '#688A65',
+                    paddingVertical: 12,
+                    paddingHorizontal: 32,
+                    borderRadius: 8,
+                    alignItems: 'center',
+                    marginTop: 16,
+                }}
+                onPress={() => router.push('/home')}>
+                    <Text style={{ color: '#F2F1EB', fontSize: 16, fontWeight: 'bold' }}>Create Profile</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView >
     );
