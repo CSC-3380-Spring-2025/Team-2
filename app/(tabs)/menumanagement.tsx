@@ -9,10 +9,10 @@ const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
 const vh = height / 100;
 
+
 export default function MenuScreen() {
   return (
     <View style={styles.container}>
-    
       <View style={styles.ButtonAdd}>
         <Button
         title= "Add Item"
@@ -198,14 +198,14 @@ export default function MenuScreen() {
   );
 }
 //add image to top  under the item name
-
+       
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#F2F1EB',
       justifyContent: 'center',
       //paddingTop:80,
-      //alignItems: 'center',
+      //alignItems: 'center'
     },
     text: {
       color: '#33261D',
