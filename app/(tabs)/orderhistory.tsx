@@ -6,122 +6,8 @@ import React from 'react';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const { height, width, } = Dimensions.get('window');
-const vw = width / 100;
-const vh = height / 100;
-
-const styles = StyleSheet.create({
-    button: {
-        flex: 1,
-        minHeight: 30,
-        maxHeight: 50,
-        maxWidth: 150,
-        backgroundColor: Platform.select({ ios: '#688a65', android: 'transparent', default: 'transparent' }),
-        borderWidth: Platform.select({ ios: 2, android: 0, default: 0 }),
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-        justifyContent: 'center',
-        alignContent: 'center'
-    },
-    divider1: {
-        display: "flex",
-        flex: 1,
-        backgroundColor: "#97ac82",
-        // height: 60 * vw,
-        minHeight: 600,
-        borderTopLeftRadius: 50,
-        borderTopRightRadius: 50,
-        justifyContent: "flex-end",
-        borderColor: 'red',
-    },
-    divider2: {
-        display: "flex",
-        backgroundColor: "#688a65",
-        height: 350,
-        borderTopLeftRadius: 50,
-        borderTopRightRadius: 50,
-        justifyContent: "flex-end",
-        borderColor: 'orange',
-        marginTop: 30,
-    },
-    divider3: {
-        display: "flex",
-        backgroundColor: "#2c341b",
-        height: 210,
-        borderColor: 'yellow',
-        borderTopLeftRadius: 50,
-        borderTopRightRadius: 50,
-        justifyContent: "center",
-        marginTop: 30,
-    },
-    header: {
-        alignContent: 'center',
-        display: 'flex',
-        flexDirection: "row",
-        justifyContent: 'space-between',
-        minHeight: 30,
-        marginBottom: 30,
-        backgroundColor: '',
-        // paddingLeft: 16,
-        // paddingRight: 16,
-    },
-    output: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        minWidth: 300
-    },
-    rowCentered: {
-        display: 'flex',
-        flexDirection: "row",
-        justifyContent: 'center',
-        borderRadius: 5,
-        backgroundColor: '',
-    },
-    row: {
-        display: 'flex',
-        flexDirection: "row",
-        justifyContent: 'space-between',
-    },
-    safeView: {
-        flex: 1,
-        backgroundColor: '#F2F1EB',
-    },
-    scrollview: {
-        width: 100 * vw,
-        maxWidth: 500,
-        paddingLeft: 4 * vw,
-        paddingRight: 4 * vw,
-        backgroundColor: '#F2F1EB',
-    },
-    text: {
-        color: '#33261D'
-    },
-    title: {
-        fontWeight: 'bold',
-        fontSize: 30,
-    },
-    textInput: {
-        backgroundColor: "#F2F1EB",
-        borderBottomColor: "#4C4737",
-        borderBottomWidth: 4,
-        borderTopLeftRadius: 5,
-        borderTopRightRadius: 5,
-        flex: 1,
-        height: 50,
-        margin: 10,
-        minHeight: 50,
-    },
-    view: {
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: "#F2F1EB",
-        height: 100 * vh,
-        alignContent: 'flex-end',
-    },
-});
+import { db } from '@/FirebaseConfig';
+import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where, } from 'firebase/firestore';
 
 var item1 = {
     name: 'matcha latte',
@@ -150,8 +36,18 @@ var item3 = {
     loca: 'Coporate Dr'
 };
 
-var history = [item1, item2, item3];
+let history: any = [];
 
+async function fetchDataFromFireStore() {
+    const querySnapshot = await getDocs(collection(db, "testMerch"));
+
+    querySnapshot.forEach((doc) => {
+        history.push({ id: doc.id, ...doc.data() });
+
+    });
+    console.log(history);
+    return history;
+}
 
 function ItemList2() {
     function onSubmit(itemName: string) {
@@ -160,7 +56,7 @@ function ItemList2() {
 
     return (
         <View>
-            {history.map((item) => (
+            {history.map((item: any) => (
                 <View
                     id='drink'
                     style={{
@@ -309,3 +205,109 @@ export default function OrderHistory() {
         </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    button: {
+        flex: 1,
+        minHeight: 30,
+        maxHeight: 50,
+        maxWidth: 150,
+        backgroundColor: Platform.select({ ios: '#688a65', android: 'transparent', default: 'transparent' }),
+        borderWidth: Platform.select({ ios: 2, android: 0, default: 0 }),
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+        justifyContent: 'center',
+        alignContent: 'center'
+    },
+    divider1: {
+        display: "flex",
+        flex: 1,
+        backgroundColor: "#97ac82",
+        // height: 60 * vw,
+        minHeight: 600,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        justifyContent: "flex-end",
+        borderColor: 'red',
+    },
+    divider2: {
+        display: "flex",
+        backgroundColor: "#688a65",
+        height: 350,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        justifyContent: "flex-end",
+        borderColor: 'orange',
+        marginTop: 30,
+    },
+    divider3: {
+        display: "flex",
+        backgroundColor: "#2c341b",
+        height: 210,
+        borderColor: 'yellow',
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        justifyContent: "center",
+        marginTop: 30,
+    },
+    header: {
+        alignContent: 'center',
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: 'space-between',
+        minHeight: 30,
+        marginBottom: 30,
+        backgroundColor: '',
+        // paddingLeft: 16,
+        // paddingRight: 16,
+    },
+    output: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        minWidth: 300
+    },
+    rowCentered: {
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: 'center',
+        borderRadius: 5,
+        backgroundColor: '',
+    },
+    row: {
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: 'space-between',
+    },
+    safeView: {
+        flex: 1,
+        backgroundColor: '#F2F1EB',
+    },
+    text: {
+        color: '#33261D'
+    },
+    title: {
+        fontWeight: 'bold',
+        fontSize: 30,
+    },
+    textInput: {
+        backgroundColor: "#F2F1EB",
+        borderBottomColor: "#4C4737",
+        borderBottomWidth: 4,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        flex: 1,
+        height: 50,
+        margin: 10,
+        minHeight: 50,
+    },
+    view: {
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: "#F2F1EB",
+        flex: 1,
+        alignContent: 'flex-end',
+    },
+});

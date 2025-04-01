@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Dimensions, FlatList, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
-import Merchandise from '../../components/merchandise/merchandise';
+import { Button, Dimensions, Image, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { getAuth } from 'firebase/auth';
 import { db } from '@/FirebaseConfig';
 import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where, } from 'firebase/firestore';
 
@@ -11,49 +9,28 @@ const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
 const vh = height / 100;
 
-
-/*
-var item1 = {
-    customer: 'Leia',
-    name: 'matcha latte',
-    price: 7.50,
-    dateOrder: 'Jan 01 2025',
-    imageUrl: 'https://www.eatingbirdfood.com/wp-content/uploads/2021/04/iced-matcha-latte-hero.jpg',
-    loca: 'College Dr',
-    complete: false,
-};
-
-var item2 = {
-    customer: 'Milo',
-    name: 'brown sugar boba',
-    price: 8.50,
-    dateOrder: 'Jan 02 2025',
-    imageUrl: 'https://wallpapersok.com/images/hd/bubble-tea-classic-brown-sugar-1ovssntxjtitoj65.jpg',
-    loca: 'College Dr',
-    complete: false,
-};
-
-var item3 = {
-    customer: 'Jaime',
-    name: 'strawberry tea',
-    price: 6.50,
-    dateOrder: 'Jan 03 2025',
-    imageUrl: 'https://myveganminimalist.com/wp-content/uploads/2022/04/Strawberry-Milk-Tea-Boba-11.jpg',
-    loca: 'Coporate Dr',
-    complete: false,
-};
-
-var history = [item1, item2, item3];
-*/
-
 let data: any = [];
+
+// let obj1: any = {
+//     merchName: 'matcha',
+//     cost: 7.50,
+//     description: 'yumm~',
+//     ingredients: 'love',
+//     allergens: 'n/a',
+//     sale: false,
+//     seasonal: false,
+//     image: 'url',
+//     customer: 'Leia',
+//     location: 'Coporate Dr',
+//     isComplete: false,
+//     dateOrdered: '03/25/2025',
+// }
+// data.push(obj1);
 
 async function fetchDataFromFireStore() {
     const querySnapshot = await getDocs(collection(db, "testMerch"));
-
     querySnapshot.forEach((doc) => {
         data.push({ id: doc.id, ...doc.data() });
-
     });
     console.log(data);
     return data;
@@ -92,7 +69,13 @@ function GenerateOrders() { // gets all unprocesss orders from database and disp
                         borderWidth: 2,
                         justifyContent: 'flex-end'
                     }}>
-                    <View id='top' style={{ display: 'flex', flex: 1, flexDirection: 'row', }}>
+                    <View
+                        id='top'
+                        style={{
+                            display: 'flex',
+                            flex: 1,
+                            flexDirection: 'row',
+                        }}>
                         <View id='left'
                             style={{
                                 display: 'flex',
@@ -123,7 +106,6 @@ function GenerateOrders() { // gets all unprocesss orders from database and disp
                             style={{
                                 display: 'flex',
                                 flex: 1,
-
                                 flexDirection: 'column'
                             }}>
 
@@ -137,17 +119,16 @@ function GenerateOrders() { // gets all unprocesss orders from database and disp
                             }}>
                                 <View>
                                     <Text style={{ textAlign: 'right' }}>
-                                        Name: {item.cust}
+                                        Name: {item.customer}
                                     </Text>
                                 </View>
                                 <View>
-                                    <Text style={{ textAlign: 'right' }}>Location: {item.loca}</Text>
+                                    <Text style={{ textAlign: 'right' }}>Location: {item.location}</Text>
                                 </View>
                                 <View>
-                                    <Text style={{ textAlign: 'right' }}>Order: {item.name}</Text>
+                                    <Text style={{ textAlign: 'right' }}>Order: {item.dateOrdered}</Text>
                                 </View>
                             </View>
-
                         </View>
                     </View>
                     <View
@@ -195,13 +176,13 @@ function GenerateOrders() { // gets all unprocesss orders from database and disp
 export default function OrderManagement() {
     const [myMerch, setMerch]: any = useState(); // myMerch is DATA
 
-    useEffect(() => {
-        async function fetchData() {
-            const data: any = await fetchDataFromFireStore();
-            setMerch(data);
-        }
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const data: any = await fetchDataFromFireStore();
+    //         setMerch(data);
+    //     }
+    //     fetchData();
+    // }, []);
 
     return (
         <SafeAreaView style={styles.safearea}>

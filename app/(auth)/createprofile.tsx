@@ -9,6 +9,10 @@ const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
 const vh = height / 100;
 
+import { getAuth } from 'firebase/auth';
+import { db } from '@/FirebaseConfig';
+import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where, setDoc, Timestamp } from 'firebase/firestore';
+
 /* trying to implement a date picker
 const newTheme = (theme) => createTheme({
     ...theme,
@@ -102,6 +106,18 @@ const styles = StyleSheet.create({
         minHeight: 50,
         color: '#614938',
     },
+    miniTextInput: {
+        backgroundColor: "#F2F1EB",
+        borderBottomColor: "#614938",
+        borderBottomWidth: 4,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        flex: 1 / 4,
+        height: 50,
+        margin: 10,
+        minHeight: 50,
+        color: '#614938',
+    },
     view: {
         backgroundColor: "F2F1EB",
         height: 100 * vh,
@@ -141,32 +157,49 @@ function PCButton({ dest, title }: PCButtonProps) {
 } */
 
 export default function CreateProfile() {
-    const router = useRouter();
     let [first, setFirst] = React.useState('');
     let [last, setLast] = React.useState('');
-    let [bday, setBday] = React.useState('');
     let [phone, setPhone] = React.useState('');
     let [email, setEmail] = React.useState('');
     let [password, setPass] = React.useState('');
     let [cPassword, setCPass] = React.useState('');
-
-    async function onSumbit() { // functional
-        try {
-            const userProfile = {
-                first,
-                last,
-                bday,
-                phone,
-                email,
-                password,
-            };
-            await AsyncStorage.setItem('userProfile', JSON.stringify(userProfile));
-            alert('Account created!');
-        } catch (e) {
-            console.error('Account creation failed :(', e);
+    let [day, setDay] = React.useState('');
+    let [month, setMonth] = React.useState('');
+    let [year, setYear] = React.useState('');
+    /*
+        async function onSumbit() {
+            try {
+                const userProfile = {
+                    first,
+                    last,
+                    bday,
+                    phone,
+                    email,
+                    password,
+                };
+                await AsyncStorage.setItem('userProfile', JSON.stringify(userProfile));
+                alert('Account created!');
+            } catch (e) {
+                console.error('Account creation failed :(', e);
+            }
         }
-    }
+    */
+    async function onSubmit() { // there's an issue with db here dob -> bday -> "02/14/2005"
+        // adds user to user table in firebase setting their email as their doc.id
+        const birthday = new Date(year + "-" + month + "-" + day);
+        const birthdayTimestamp = Timestamp.fromDate(birthday);
 
+        await setDoc(doc(db, "users", email), {
+            dob: birthdayTimestamp,
+            email: email,
+            first: first,
+            last: last,
+            password: cPassword,
+            phone: parseInt(phone),
+        });
+
+        alert("Account Created for " + email); // should print the email that the user submitted
+    }
     return (
         <SafeAreaView style={{
             flex: 1,
@@ -179,7 +212,6 @@ export default function CreateProfile() {
                 backgroundColor="#688a65"
                 barStyle={'default'}
                 showHideTransition={'fade'}
-                // hidden={hidden}
                 networkActivityIndicatorVisible={true}
                 translucent={true}
             />
@@ -220,13 +252,31 @@ export default function CreateProfile() {
                         value={last}
                     />
                 </View>
-                <View style={styles.row}>
+                <View style={{
+                    display: 'flex',
+                    flexDirection: "row",
+                    justifyContent: 'space-between',
+                }}>
                     <TextInput
-                        style={styles.textInput}
-                        placeholder='birthday *'
+                        style={styles.miniTextInput}
+                        placeholder='Birth MM *'
                         placeholderTextColor='black'
-                        onChangeText={setBday}
-                        value={bday}
+                        onChangeText={setMonth}
+                        value={month}
+                    />
+                    <TextInput
+                        style={styles.miniTextInput}
+                        placeholder='Birth DD *'
+                        placeholderTextColor='black'
+                        onChangeText={setDay}
+                        value={day}
+                    />
+                    <TextInput
+                        style={styles.miniTextInput}
+                        placeholder='Birth YYYY *'
+                        placeholderTextColor='black'
+                        onChangeText={setYear}
+                        value={year}
                     />
                 </View>
                 <View style={styles.row}>
@@ -241,7 +291,7 @@ export default function CreateProfile() {
                 <View style={styles.row}>
                     <TextInput
                         style={styles.textInput}
-                        placeholder='email'
+                        placeholder='email *'
                         placeholderTextColor='black'
                         value={email}
                         onChangeText={setEmail}
@@ -265,19 +315,38 @@ export default function CreateProfile() {
                         onChangeText={setCPass}
                     />
                 </View>
-                <TouchableOpacity
-                style={{
-                    backgroundColor: '#688A65',
-                    paddingVertical: 12,
-                    paddingHorizontal: 32,
-                    borderRadius: 8,
-                    alignItems: 'center',
-                    marginTop: 16,
-                }}
-                onPress={() => router.push('/home')}>
-                    <Text style={{ color: '#F2F1EB', fontSize: 16, fontWeight: 'bold' }}>Create Profile</Text>
-                </TouchableOpacity>
+            </View>
+            <View /*id="btnRow"*/ style={styles.rowCentered}>
+                <View style={styles.button}>
+                    <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                        onPress={() => { onSubmit() }}
+                    >
+                        <View style={{
+                            display: 'flex',
+                            flex: 1,
+                            backgroundColor: '#688a65',
+                            minWidth: 275,
+                            minHeight: 35,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderRadius: 10,
+                        }}>
+                            <Text style={{ fontWeight: 'bold', color: '#F2F1EB' }}>SUBMIT</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         </SafeAreaView >
     );
 }
+
+/** OLD CODE
+ *      // const docRef = await addDoc(collection(db, "users"), {
+        //     dob: birthdayTimestamp,
+        //     email: email,
+        //     first: first,
+        //     last: last,
+        //     password: cPassword,
+        //     phone: parseInt(phone),
+        // });
+ */
