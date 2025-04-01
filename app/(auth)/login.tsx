@@ -9,59 +9,6 @@ const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
 const vh = height / 100;
 
-interface RButtonProps {
-    title: string,
-}
-
-interface CButtonProps {
-    dest: string;
-    title: string;
-}
-
-function RButton({ title }: RButtonProps) { // having issues being able to pass functions through this
-    return (
-        <TouchableOpacity >
-            <View style={{
-                display: 'flex',
-                flex: 1,
-                backgroundColor: '#688A65',
-                minWidth: 275,
-                minHeight: 35,
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <Text style={{ fontWeight: 'bold', color: '#F2F1EB', }}>{title}</Text>
-            </View>
-        </TouchableOpacity>
-    )
-}
-
-//CButton short for Customer Button
-function CButton({ dest, title }: CButtonProps) { // plan to make this an accessible API
-    return (
-        <Link href={dest as RelativePathString} asChild>
-            <TouchableOpacity>
-                <View style={{
-                    display: 'flex',
-                    flex: 1,
-                    backgroundColor: '#688A65',
-                    minWidth: 275,
-                    minHeight: 35,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text
-                        style={{
-                            fontWeight: 'bold',
-                            color: '#F2F1EB',
-                        }}
-                    >{title}</Text>
-                </View>
-            </TouchableOpacity>
-        </Link>
-    );
-}
-
 // function print loginUI 
 export default function Login() {
     // create email variable and setEmail funct
@@ -70,30 +17,22 @@ export default function Login() {
     // create password variable and setPassword funct
     let [password, setPassword] = React.useState('');
 
-    // printEmail take string variable 'e' and prints it
-    function printEmail(e: string) { // testing function; will be replaces soon
-        alert(e);
-    }
-
-    // printPass take string variable 'p' and prints it 
-    function printPass(p: any) {
-        alert(p);
-    }
-
     async function signIn() { //FUNCTIONAL
         const docRef = doc(db, 'users', email); // goes to users collection and retrieve the user info ties to that email / doc.id
         const docSnap = await getDoc(docRef);
         if (!docSnap.exists()) {
-            alert("wrong login info");
+            alert("incorrect email");
         }
         else {
             const data = docSnap.data();
-            alert('Password: ' + data.password);
+            const correct: string = data.password;
+            if (correct === password) { // if password entered is correct
+                router.navigate('/(tabs)/home');
+            }
+            else {
+                alert("incorrect password");
+            }
         }
-    }
-
-    async function checkPass(p: string) {
-        const userDoc = await getDocs(collection(db, "testMerch", email));
     }
 
     return (
