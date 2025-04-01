@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
-import { router, useRouter } from 'expo-router';
+import { router, useRouter, Link, RelativePathString } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 // import {createTheme } from '@mui/material/styles'
@@ -125,36 +125,36 @@ const styles = StyleSheet.create({
 
 });
 
-interface PCButtonProps { //PC short for profile creation
-    dest: any;
+/*interface PCButtonProps { //PC short for profile creation
+    dest: string;
     title: string;
     color?: string;
 }
 
 function PCButton({ dest, title }: PCButtonProps) {
     return (
-
-        <TouchableOpacity onPress={() => { router.navigate(dest) }}>
-            <View style={{
-                display: 'flex',
-                flex: 1,
-                backgroundColor: '#688A65',
-                minWidth: 275,
-                minHeight: 35,
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <Text
-                    style={{
-                        fontWeight: 'bold',
-                        color: '#F2F1EB',
-                    }}
-                >{title}</Text>
-            </View>
-        </TouchableOpacity>
-
+        <Link href={dest as RelativePathString} asChild>
+            <TouchableOpacity /*onPress={() => { router.navigate(dest) }} >
+                <View style={{
+                    display: 'flex',
+                    flex: 1,
+                    backgroundColor: '#688A65',
+                    minWidth: 275,
+                    minHeight: 35,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <Text
+                        style={{
+                            fontWeight: 'bold',
+                            color: '#F2F1EB',
+                        }}
+                    >{title}</Text>
+                </View>
+            </TouchableOpacity>
+    </Link>
     );
-}
+} */
 
 export default function CreateProfile() {
     let [first, setFirst] = React.useState('');

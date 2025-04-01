@@ -1,3 +1,4 @@
+//layout file for bottom navigation bar
 import { Tabs } from 'expo-router';
 import Octicons from '@expo/vector-icons/Octicons';
 
@@ -17,7 +18,7 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
-        name="index" //file.tsx name
+        name="home" //file.tsx name
         options={{
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
