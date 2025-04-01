@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     },
     divider1: {
         display: "flex",
+        flex: 1,
         backgroundColor: "#97ac82",
         minHeight: 600,
         borderTopLeftRadius: 50,
@@ -34,8 +35,9 @@ const styles = StyleSheet.create({
     },
     divider2: {
         display: "flex",
+        flex: 1 / 2,
         backgroundColor: "#688a65",
-        height: 350,
+        minHeight: 350,
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
         justifyContent: "flex-end",
@@ -44,8 +46,9 @@ const styles = StyleSheet.create({
     },
     divider3: {
         display: "flex",
+        flex: 1 / 2,
         backgroundColor: "#2c341b",
-        height: 210,
+        minHeight: 210,
         borderColor: 'yellow',
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
@@ -60,8 +63,6 @@ const styles = StyleSheet.create({
         minHeight: 70,
         marginBottom: 30,
         backgroundColor: '',
-        // paddingLeft: 16,
-        // paddingRight: 16,
     },
     rowCentered: {
         display: 'flex',
@@ -118,7 +119,7 @@ export default function Home() {
 
     getAuth().onAuthStateChanged((user) => {
         if (!user) {
-            router.replace('/(tabs)/login')
+            router.replace('/login')
         };
     });
 
@@ -167,7 +168,7 @@ export default function Home() {
                                 height: 70,
                                 maxHeight: 70,
                                 maxWidth: 70,
-                                backgroundColor: ''
+                                backgroundColor: '',
                             }}
                             resizeMode="contain"
                         />
