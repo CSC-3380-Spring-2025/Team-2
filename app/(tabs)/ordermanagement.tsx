@@ -1,42 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Dimensions, Image, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
 import { db } from '@/FirebaseConfig';
 import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where, } from 'firebase/firestore';
 
-const { height, width, } = Dimensions.get('window');
-const vw = width / 100;
-const vh = height / 100;
+let data: any = [
+    {
+        merchName: 'matcha',
+        cost: 7.50,
+        description: 'yumm~',
+        ingredients: 'love',
+        allergens: 'n/a',
+        sale: false,
+        seasonal: false,
+        image: 'url',
+        customer: 'Leia',
+        location: 'Coporate Dr',
+        isComplete: false,
+        dateOrdered: '03/25/2025',
+    },
+    {
+        merchName: 'brown sugar',
+        cost: 8.50,
+        description: 'yumm~',
+        ingredients: 'love',
+        allergens: 'n/a',
+        sale: false,
+        seasonal: false,
+        image: 'url',
+        customer: 'Steven',
+        location: 'College Dr',
+        isComplete: false,
+        dateOrdered: '04/03/2025',
+    }
 
-let data: any = [];
+];
 
-// let obj1: any = {
-//     merchName: 'matcha',
-//     cost: 7.50,
-//     description: 'yumm~',
-//     ingredients: 'love',
-//     allergens: 'n/a',
-//     sale: false,
-//     seasonal: false,
-//     image: 'url',
-//     customer: 'Leia',
-//     location: 'Coporate Dr',
-//     isComplete: false,
-//     dateOrdered: '03/25/2025',
-// }
-// data.push(obj1);
 
 async function fetchDataFromFireStore() {
-    const querySnapshot = await getDocs(collection(db, "testMerch"));
+    const querySnapshot = await getDocs(collection(db, "menu"));
     querySnapshot.forEach((doc) => {
         data.push({ id: doc.id, ...doc.data() });
     });
     console.log(data);
     return data;
 }
-
-// const myData = collection(db, 'merchandise');
 
 function GenerateOrders() { // gets all unprocesss orders from database and displays them; only visible to admin
     function complete(customer: string) {
@@ -63,11 +71,13 @@ function GenerateOrders() { // gets all unprocesss orders from database and disp
                         maxHeight: 240,
                         marginBottom: 30,
                         flexDirection: 'column',
-                        backgroundColor: 'pink',
+                        backgroundColor: 'white',
                         borderRadius: 15,
                         borderColor: '#614938',
                         borderWidth: 2,
-                        justifyContent: 'flex-end'
+                        justifyContent: 'flex-end',
+                        paddingLeft: 10,
+                        paddingRight: 10,
                     }}>
                     <View
                         id='top'
@@ -75,26 +85,40 @@ function GenerateOrders() { // gets all unprocesss orders from database and disp
                             display: 'flex',
                             flex: 1,
                             flexDirection: 'row',
+                            justifyContent: 'space-between'
                         }}>
-                        <View id='left'
+                        <View
+                            id='left'
                             style={{
                                 display: 'flex',
+                                flexDirection: 'column',
                                 flex: 1,
                             }}>
+                            <Text style={{
+                                display: 'flex',
+                                flex: 1 / 4,
+                                alignContent: 'center',
+                                marginBottom: 10,
+                                backgroundColor: ''
+                            }}>{item.dateOrdered}</Text>
                             <View style={{
                                 display: 'flex',
-                                flex: 1,
+                                flex: 3 / 4,
+                                flexDirection: 'row',
+                                justifyContent: 'center'
                             }}>
-                                <Text style={{
-                                    display: 'flex',
-                                    flex: 0,
-                                    justifyContent: 'center',
-                                    marginBottom: 10,
-                                }}>{item.dateOrder}</Text>
+
                                 <Image
-                                    src={item.img}
+                                    source={require('@/assets/images/cart.png')}
                                     style={{
                                         flex: 1,
+                                        minHeight: 70,
+                                        minWidth: 70,
+                                        width: 70,
+                                        height: 70,
+                                        maxHeight: 70,
+                                        maxWidth: 70,
+                                        backgroundColor: ''
                                     }}
                                     resizeMode="contain"
                                 />
@@ -115,7 +139,6 @@ function GenerateOrders() { // gets all unprocesss orders from database and disp
                                 justifyContent: 'center',
                                 alignItems: 'flex-end',
                                 marginTop: 30,
-                                marginRight: 25,
                             }}>
                                 <View>
                                     <Text style={{ textAlign: 'right' }}>
@@ -123,10 +146,14 @@ function GenerateOrders() { // gets all unprocesss orders from database and disp
                                     </Text>
                                 </View>
                                 <View>
-                                    <Text style={{ textAlign: 'right' }}>Location: {item.location}</Text>
+                                    <Text style={{ textAlign: 'right' }}>
+                                        Location: {item.location}
+                                    </Text>
                                 </View>
                                 <View>
-                                    <Text style={{ textAlign: 'right' }}>Order: {item.dateOrdered}</Text>
+                                    <Text style={{ textAlign: 'right' }}>
+                                        Order: {item.dateOrdered}
+                                    </Text>
                                 </View>
                             </View>
                         </View>
@@ -193,23 +220,51 @@ export default function OrderManagement() {
                 showHideTransition={'fade'}
                 networkActivityIndicatorVisible={true}
                 translucent={true} />
+            <View id='header' style={styles.header}>
+                <View id='pfp' style={{
+                    backgroundColor: '',
+                    minHeight: 70,
+                    minWidth: 70,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+
+                }}>
+                    <Ionicons
+                        name="person-circle-outline"
+                        size={50} color="#614938"
+                    />
+                </View>
+                <View id='title' style={{ backgroundColor: '', display: 'flex', justifyContent: 'center', }}>
+                    <Text style={styles.title}>current orders</Text>
+                </View>
+                <View style={{
+                    backgroundColor: '',
+
+                }}>
+                    <TouchableOpacity onPress={() => auth.signOut()}> {/*signs the user out to login page */}
+                        <Image
+                            source={require('@/assets/images/cart.png')}
+                            style={{
+                                minHeight: 70,
+                                minWidth: 70,
+                                width: 70,
+                                height: 70,
+                                maxHeight: 70,
+                                maxWidth: 70,
+                                backgroundColor: '',
+                            }}
+                            resizeMode="contain"
+                        />
+                    </TouchableOpacity>
+                </View>
+            </View>
             <View id='body' style={{
                 display: 'flex',
                 flex: 1,
                 alignItems: 'center'
             }}>
                 <GenerateOrders />
-                {/* <FlatList
-                    data={myMerch}
-                    renderItem={({ item }) =>
-                        <Item
-                            name={item.name}
-                            img={item.img}
-                            cust={item.customer}
-                            loca={item.location}
-                            dateOrdered={item.dateOrdered}
-                        />}
-                /> */}
             </View>
         </SafeAreaView>
     );
@@ -231,19 +286,15 @@ const styles = StyleSheet.create({
         flex: 1,
         width: 50,
         height: 50,
-
         backgroundColor: Platform.select({ ios: 'red', android: 'transparent', default: 'transparent' }),
         borderWidth: Platform.select({ ios: 2, android: 0, default: 0 }),
-
     },
     completeBtn: {
         flex: 1,
         width: 50,
         height: 50,
-
         backgroundColor: Platform.select({ ios: '#688a65', android: 'transparent', default: 'transparent' }),
         borderWidth: Platform.select({ ios: 2, android: 0, default: 0 }),
-
     },
     divider1: {
         display: "flex",
@@ -282,8 +333,6 @@ const styles = StyleSheet.create({
         minHeight: 70,
         marginBottom: 30,
         backgroundColor: '',
-        // paddingLeft: 16,
-        // paddingRight: 16,
     },
     rowCentered: {
         display: 'flex',
@@ -299,13 +348,6 @@ const styles = StyleSheet.create({
     },
     safearea: {
         flex: 1,
-        backgroundColor: '#F2F1EB',
-    },
-    scrollview: {
-        width: 100 * vw,
-        maxWidth: 500,
-        paddingLeft: 4 * vw,
-        paddingRight: 4 * vw,
         backgroundColor: '#F2F1EB',
     },
     text: {
@@ -325,12 +367,5 @@ const styles = StyleSheet.create({
         height: 50,
         margin: 10,
         minHeight: 50,
-    },
-    view: {
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: "#F2F1EB",
-        height: 100 * vh,
-        alignContent: 'flex-end',
     },
 });
