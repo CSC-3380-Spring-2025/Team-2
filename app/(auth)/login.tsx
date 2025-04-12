@@ -1,13 +1,10 @@
 import React from 'react';
-import { Link, RelativePathString } from 'expo-router';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { router } from 'expo-router';
-import { getAuth } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { db } from '@/FirebaseConfig';
 import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, query, where, Timestamp } from 'firebase/firestore';
-const { height, width, } = Dimensions.get('window');
-const vw = width / 100;
-const vh = height / 100;
+import { navigate } from 'expo-router/build/global-state/routing';
 
 // function print loginUI 
 export default function Login() {
@@ -17,22 +14,36 @@ export default function Login() {
     // create password variable and setPassword funct
     let [password, setPassword] = React.useState('');
 
-    async function signIn() { //FUNCTIONAL
-        const docRef = doc(db, 'users', email); // goes to users collection and retrieve the user info ties to that email / doc.id
-        const docSnap = await getDoc(docRef);
-        if (!docSnap.exists()) {
-            alert("incorrect email");
-        }
-        else {
-            const data = docSnap.data();
-            const correct: string = data.password;
-            if (correct === password) { // if password entered is correct
-                router.navigate('/(tabs)/home');
-            }
-            else {
-                alert("incorrect password");
-            }
-        }
+    // OLD CODE that signs in with the database that is visible
+    // async function signIn() { //FUNCTIONAL
+    //     const docRef = doc(db, 'users', email); // goes to users collection and retrieve the user info ties to that email / doc.id
+    //     const docSnap = await getDoc(docRef);
+    //     if (!docSnap.exists()) {
+    //         alert("incorrect email");
+    //     }
+    //     else {
+    //         const data: any = docSnap.data();
+    //         const correct: string = data.password;
+    //         if (correct === password) { // if password entered is correct
+    //             // router.navigate('/(tabs)/home');
+    //             router.navigate('/(tabs)/menu');
+    //         }
+    //         else {
+    //             alert("incorrect password");
+    //         }
+    //     }
+    // }
+
+    function signIn() {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+            const user = userCredential.user;
+            router.navigate('/(tabs)/menu');
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert("ErrorCode: " + errorCode + "\nErrorMess: " + errorMessage);
+        });
     }
 
     return (
@@ -54,8 +65,10 @@ export default function Login() {
                 <Image
                     source={require('@/assets/images/splash-icon.png')}
                     style={{
-                        width: 40 * vw,
-                        height: 40 * vw,
+                        // width: 40 * vw,
+                        // height: 40 * vw,
+                        width: 200,
+                        height: 200,
                         backgroundColor: ''
                     }}
                     resizeMode="contain"
@@ -90,7 +103,6 @@ export default function Login() {
                     <TouchableOpacity // if we have time, we should design a button component that has all these features.
                         onPress={() => {
                             signIn();
-                            // router.navigate('/(tabs)/home')
                         }}>
                         <View style={{
                             display: 'flex',
@@ -115,7 +127,6 @@ export default function Login() {
                 <View style={styles.rowCentered}>
                     <TouchableOpacity // if we have time, we should design a button component that has all these features.
                         onPress={() => {
-                            // signUp();
                             router.push('/createprofile');
                         }}>
                         <View style={{
@@ -161,13 +172,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
     },
-    logo: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: "",
-        width: (55 * vw),
-        maxHeight: 250
-    },
     row: {
         display: 'flex',
         flexDirection: "row",
@@ -183,13 +187,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },
-    scrollview: {
-        width: 100 * vw,
-        maxWidth: 500,
-        paddingLeft: 4 * vw,
-        paddingRight: 4 * vw,
-        backgroundColor: '#F2F1EB',
-    },
     text: {
         color: '#33261D'
     },
@@ -204,10 +201,6 @@ const styles = StyleSheet.create({
         margin: 10,
         minHeight: 50,
         color: '#614938',
-    },
-    view: {
-        backgroundColor: "F2F1EB",
-        flex: 1,
     },
 
 });
