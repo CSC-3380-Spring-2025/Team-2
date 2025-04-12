@@ -1,34 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'expo-router';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router';
 import { db } from '@/FirebaseConfig';
-import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where, } from 'firebase/firestore';
+import { collection, addDoc, arrayUnion, getDocs, updateDoc, deleteDoc, doc, query, where, } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
-let data: any = [
+let merch: any = [
   {
     name: 'matcha',
     cost: 7.50,
+    img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
   },
   {
     name: 'brown sugar',
     cost: 5.50,
+    img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
   },
   {
     name: 'strawberry',
     cost: 8.50,
+    img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
   },
 ];
 
+// let merch: any = [];
 // async function fetchDataFromFireStore() {
-//   const querySnapshot = await getDocs(collection(db, "menu"));
+//   const querySnapshot = await getDocs(collection(db, "merchandise"));
 //   querySnapshot.forEach((doc) => {
-//     data.push({ id: doc.id, ...doc.data() });
+//     merch.push({ id: doc.id, ...doc.data() });
 //   });
-//   console.log(data);
-//   return data;
+//   console.log(merch);
+//   return merch;
 // }
+
+async function addItem(item: String) {
+  //import the docRef that was created in login here
+  const dbEmail: any = getAuth().currentUser?.email;
+  let docRef: any = doc(db, 'users', dbEmail);
+  await updateDoc(docRef, {
+    cart: arrayUnion(item)
+  });
+}
+
 
 function GenerateMerch() { // gets all unprocesss orders from database and displays them; only visible to admin
   function add(customer: string) {// adds to cart
@@ -37,7 +52,7 @@ function GenerateMerch() { // gets all unprocesss orders from database and displ
 
   return ( //item.whatever has to be the same property name as set in the database. Any typos or alterations will not reflect in the app.
     <View>
-      {data.map((item: any) => (
+      {merch.map((item: any) => (
         <View
           id='merch'
           style={{
@@ -45,7 +60,7 @@ function GenerateMerch() { // gets all unprocesss orders from database and displ
             flex: 1,
             flexDirection: 'row',
             borderRadius: 15,
-            borderColor: '#614938',
+            borderColor: '#2c341b',
             borderWidth: 3,
             minHeight: 150,
             margin: 16,
@@ -61,26 +76,47 @@ function GenerateMerch() { // gets all unprocesss orders from database and displ
 
             }}
           >
-            <Text>{item.name}</Text>
-            <Text>{'$'}{item.cost}</Text>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.name}</Text>
+            <Text style={{ fontSize: 20, }}>{'$'}{item.cost}</Text>
           </View>
           <View
             id='right'
             style={{
               display: 'flex',
               flex: 1,
-              backgroundColor: 'pink',
+              backgroundColor: '#688a65',
               padding: 10,
+              borderTopRightRadius: 12,
+              borderBottomRightRadius: 12,
             }}
           >
             <Image
-              src={item.url}
+              src={item.image}
               style={{
                 flex: 1,
-                backgroundColor: 'yellow'
+                backgroundColor: ''
               }}
               resizeMode="contain"
             />
+
+            <TouchableOpacity
+              style={{
+                position: 'absolute',
+                zIndex: 2,
+                display: 'flex',
+                top: '70%',
+                left: '80%',
+                // alignItems: 'flex-end', // Align icon to the right
+              }}
+              onPress={() => {
+                alert("added: " + item.name);
+                addItem(item.name);
+              }}>
+              <Ionicons
+                name="add-circle"
+                size={50}
+                color="#F2F1EB" />
+            </TouchableOpacity>
           </View>
         </View>
       ))}

@@ -2,159 +2,14 @@ import React from 'react';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StatusBarStyle, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import { router, useRouter, Link, RelativePathString } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import AsyncStorage from '@react-native-async-storage/async-storage'
-// import {createTheme } from '@mui/material/styles'
-import { ThemeProvider } from '@react-navigation/native';
+
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
 const vh = height / 100;
 
-import { getAuth } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { db } from '@/FirebaseConfig';
 import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where, setDoc, Timestamp } from 'firebase/firestore';
-
-/* trying to implement a date picker
-const newTheme = (theme) => createTheme({
-    ...theme,
-    components: {
-        MuiPickersCalendarHeader: {
-            styleOverrides: {
-                root: {
-                    color: '#F2F1EB',
-                    borderRadius: '0',
-                    borderWidth: '1',
-                    borderColor: '#e91e63',
-                    border: '1 solid',
-                    backgroundColor: '#F2F1EB'
-                }
-            }
-        }
-    }
-})
-<ThemeProvider theme={newTheme}>
-    <DesktopDatePicker />
-</ThemeProvider>*/
-
-const styles = StyleSheet.create({
-    backBtn: {
-        maxHeight: 50,
-        maxWidth: 70,
-        position: 'absolute',
-        left: 10,
-        top: 10,
-    },
-    button: {
-        flex: 1,
-        borderRadius: 5,
-        maxWidth: 275,
-        maxHeight: 50,
-        marginTop: 70,
-        backgroundColor: Platform.select({ ios: '#688a65', android: 'transparent' }),
-        borderColor: '#2c341b',
-        borderWidth: Platform.select({ ios: 2, android: 0 }),
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#F2F1EB',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    logo: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: "",
-        width: (55 * vw),
-        maxHeight: 250
-    },
-    row: {
-        display: 'flex',
-        flexDirection: "row",
-        justifyContent: 'space-between',
-    },
-    rowCentered: {
-        display: 'flex',
-        flexDirection: "row",
-        justifyContent: 'center',
-        borderRadius: 5,
-        backgroundColor: '',
-    },
-    scrollview: {
-        width: 100 * vw,
-        maxWidth: 500,
-        paddingLeft: 4 * vw,
-        paddingRight: 4 * vw,
-        backgroundColor: '#F2F1EB',
-        // backgroundColor: '#99999C',
-    },
-    text: {
-        color: '#33261D'
-    },
-    textInput: {
-        backgroundColor: "#F2F1EB",
-        borderBottomColor: "#614938",
-        borderBottomWidth: 4,
-        borderTopLeftRadius: 5,
-        borderTopRightRadius: 5,
-        flex: 1,
-        height: 50,
-        margin: 10,
-        minHeight: 50,
-        color: '#614938',
-    },
-    miniTextInput: {
-        backgroundColor: "#F2F1EB",
-        borderBottomColor: "#614938",
-        borderBottomWidth: 4,
-        borderTopLeftRadius: 5,
-        borderTopRightRadius: 5,
-        flex: 1 / 4,
-        height: 50,
-        margin: 10,
-        minHeight: 50,
-        color: '#614938',
-    },
-    view: {
-        backgroundColor: "F2F1EB",
-        height: 100 * vh,
-    },
-
-});
-
-/*interface PCButtonProps { //PC short for profile creation
-    dest: string;
-    title: string;
-    color?: string;
-}
-
-function PCButton({ dest, title }: PCButtonProps) {
-    return (
-        <Link href={dest as RelativePathString} asChild>
-            <TouchableOpacity /*onPress={() => { router.navigate(dest) }} >
-                <View style={{
-                    display: 'flex',
-                    flex: 1,
-                    backgroundColor: '#688A65',
-                    minWidth: 275,
-                    minHeight: 35,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text
-                        style={{
-                            fontWeight: 'bold',
-                            color: '#F2F1EB',
-                        }}
-                    >{title}</Text>
-                </View>
-            </TouchableOpacity>
-    </Link>
-    );
-} */
 
 export default function CreateProfile() {
     let [first, setFirst] = React.useState('');
@@ -184,8 +39,18 @@ export default function CreateProfile() {
             }
         }
     */
-    async function onSubmit() { // there's an issue with db here dob -> bday -> "02/14/2005"
-        // adds user to user table in firebase setting their email as their doc.id
+    async function onSubmit() {
+        // adds account to separate firebase db that is NOT VISIBLE
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+            const user = userCredential.user;
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert("ErrorCode: " + errorCode + "\nErrorMess: " + errorMessage);
+        });
+
+        // adds user to user table in firebase setting their email as their doc.id IS VISIBLE
         const birthday = new Date(year + "-" + month + "-" + day);
         const birthdayTimestamp = Timestamp.fromDate(birthday);
 
@@ -196,9 +61,12 @@ export default function CreateProfile() {
             last: last,
             password: cPassword,
             phone: parseInt(phone),
+            cart: {},
         });
 
+
         alert("Account Created for " + email); // should print the email that the user submitted
+        router.navigate('/(auth)/login');
     }
     return (
         <SafeAreaView style={{
@@ -339,6 +207,96 @@ export default function CreateProfile() {
         </SafeAreaView >
     );
 }
+const styles = StyleSheet.create({
+    backBtn: {
+        maxHeight: 50,
+        maxWidth: 70,
+        position: 'absolute',
+        left: 10,
+        top: 10,
+    },
+    button: {
+        flex: 1,
+        borderRadius: 5,
+        maxWidth: 275,
+        maxHeight: 50,
+        marginTop: 70,
+        backgroundColor: Platform.select({ ios: '#688a65', android: 'transparent' }),
+        borderColor: '#2c341b',
+        borderWidth: Platform.select({ ios: 2, android: 0 }),
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#F2F1EB',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    logo: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: "",
+        width: (55 * vw),
+        maxHeight: 250
+    },
+    row: {
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: 'space-between',
+    },
+    rowCentered: {
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: 'center',
+        borderRadius: 5,
+        backgroundColor: '',
+    },
+    scrollview: {
+        width: 100 * vw,
+        maxWidth: 500,
+        paddingLeft: 4 * vw,
+        paddingRight: 4 * vw,
+        backgroundColor: '#F2F1EB',
+        // backgroundColor: '#99999C',
+    },
+    text: {
+        color: '#33261D'
+    },
+    textInput: {
+        backgroundColor: "#F2F1EB",
+        borderBottomColor: "#614938",
+        borderBottomWidth: 4,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        flex: 1,
+        height: 50,
+        margin: 10,
+        minHeight: 50,
+        color: '#614938',
+    },
+    miniTextInput: {
+        backgroundColor: "#F2F1EB",
+        borderBottomColor: "#614938",
+        borderBottomWidth: 4,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        flex: 1 / 4,
+        height: 50,
+        margin: 10,
+        minHeight: 50,
+        color: '#614938',
+    },
+    view: {
+        backgroundColor: "F2F1EB",
+        height: 100 * vh,
+    },
+
+});
+
 
 /** OLD CODE
  *      // const docRef = await addDoc(collection(db, "users"), {
