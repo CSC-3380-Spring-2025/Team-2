@@ -7,33 +7,23 @@ import { db } from '@/FirebaseConfig';
 import { collection, addDoc, arrayUnion, getDocs, updateDoc, deleteDoc, doc, query, where, } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
-let merch: any = [
-  {
-    name: 'matcha',
-    cost: 7.50,
-    img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
-  },
-  {
-    name: 'brown sugar',
-    cost: 5.50,
-    img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
-  },
-  {
-    name: 'strawberry',
-    cost: 8.50,
-    img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
-  },
-];
-
-// let merch: any = [];
-// async function fetchDataFromFireStore() {
-//   const querySnapshot = await getDocs(collection(db, "merchandise"));
-//   querySnapshot.forEach((doc) => {
-//     merch.push({ id: doc.id, ...doc.data() });
-//   });
-//   console.log(merch);
-//   return merch;
-// }
+// let merch: any = [
+//   {
+//     name: 'matcha',
+//     cost: 7.50,
+//     img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
+//   },
+//   {
+//     name: 'brown sugar',
+//     cost: 5.50,
+//     img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
+//   },
+//   {
+//     name: 'strawberry',
+//     cost: 8.50,
+//     img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
+//   },
+// ];
 
 async function addItem(item: String) {
   //import the docRef that was created in login here
@@ -44,15 +34,33 @@ async function addItem(item: String) {
   });
 }
 
-
 function GenerateMerch() { // gets all unprocesss orders from database and displays them; only visible to admin
+  const [merch, setMerch] = useState<any[]>([]); //list of objects from firebase
+
+  useEffect(() => {
+    const fetchMerch = async () => {
+      const docRef = collection(db, "menu");
+      const docSnap = await getDocs(docRef);
+      const merchList: any[] = [];
+
+      if (!docSnap.empty) {
+        docSnap.forEach((doc) => {
+          merchList.push({ id: doc.id, ...doc.data() });
+        });
+        setMerch(merchList);
+      }
+    };
+
+    fetchMerch();
+  }, []);
+
   function add(customer: string) {// adds to cart
     alert("item added!");
   }
 
   return ( //item.whatever has to be the same property name as set in the database. Any typos or alterations will not reflect in the app.
     <View>
-      {merch.map((item: any) => (
+      {merch.map((item) => (
         <View
           id='merch'
           style={{
@@ -161,7 +169,7 @@ export default function Menu() {
           backgroundColor: '',
 
         }}>
-          <TouchableOpacity onPress={() => { }}> {/*signs the user out to login page */}
+          <TouchableOpacity onPress={() => { router.navigate('/cart') }}> {/*signs the user out to login page */}
             <Image
               source={require('@/assets/images/cart.png')}
               style={{
