@@ -61,9 +61,8 @@ export default function CreateProfile() {
             last: last,
             password: cPassword,
             phone: parseInt(phone),
-            cart: {},
+            cart: [],
         });
-
 
         alert("Account Created for " + email); // should print the email that the user submitted
         router.navigate('/(auth)/login');

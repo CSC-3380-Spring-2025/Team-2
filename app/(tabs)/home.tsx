@@ -131,6 +131,7 @@ export default function Home() {
                 translucent={true}
             />
             <View id='header' style={styles.header}>
+                <TouchableOpacity onPress={() => { router.back() }}>
                 <View id='pfp' style={{
                     backgroundColor: '',
                     minHeight: 70,
@@ -144,7 +145,8 @@ export default function Home() {
                         name="person-circle-outline"
                         size={50} color="#614938"
                     />
-                </View>
+                    </View>
+                    </TouchableOpacity>
                 <View id='title' style={{ backgroundColor: '', display: 'flex', justifyContent: 'center', }}>
                     <Text style={styles.title}>bubble</Text>
                 </View>
@@ -222,7 +224,7 @@ export default function Home() {
                             <View style={styles.rowCentered}>
                                 <View /*style={styles.button}*/>
                                     <TouchableOpacity // if we have time, we should design a button component that has all these features.
-                                        onPress={() => router.navigate('/(tabs)/menubackup')}>
+                                        onPress={() => { router.push('/(tabs)/menubackup') }}>
                                         <View style={{
                                             display: 'flex',
                                             flex: 1,

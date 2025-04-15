@@ -175,10 +175,10 @@ export default function Cart() {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View id='body' style={{ flex: 1, backgroundColor: 'pink' }}>
+            <ScrollView id='body' style={{ flex: 1, backgroundColor: '' }}>
                 <GenerateCart />
-            </View>
-            <View id='footer' style={{ flex: 1 }}>
+            </ScrollView>
+            <View id='footer' style={{ flex: 1 / 6 }}>
                 <View style={styles.rowCentered}>
                     <TouchableOpacity >
                         <View style={{
