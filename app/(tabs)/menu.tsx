@@ -89,7 +89,7 @@ export default function MenuScreen() {
         </View>
       </View>
       <View>
-      {history.map((item, index) => (
+      {history.map((item) => (
 
       <View
       id="menu items"
