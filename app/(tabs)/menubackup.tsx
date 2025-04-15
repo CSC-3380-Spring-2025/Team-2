@@ -7,33 +7,33 @@ import { db } from '@/FirebaseConfig';
 import { collection, addDoc, arrayUnion, getDocs, updateDoc, deleteDoc, doc, query, where, } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
-let merch: any = [
-  {
-    name: 'matcha',
-    cost: 7.50,
-    img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
-  },
-  {
-    name: 'brown sugar',
-    cost: 5.50,
-    img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
-  },
-  {
-    name: 'strawberry',
-    cost: 8.50,
-    img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
-  },
-];
+/**
+ * TEST ACCOUNTS
+ * beaux@gmail.com
+ * temppassword
+ * 
+ * babycakes@gmail.com
+ * babygotback
+ * 
+ */
 
-// let merch: any = [];
-// async function fetchDataFromFireStore() {
-//   const querySnapshot = await getDocs(collection(db, "merchandise"));
-//   querySnapshot.forEach((doc) => {
-//     merch.push({ id: doc.id, ...doc.data() });
-//   });
-//   console.log(merch);
-//   return merch;
-// }
+// let merch: any = [
+//   {
+//     name: 'matcha',
+//     cost: 7.50,
+//     img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
+//   },
+//   {
+//     name: 'brown sugar',
+//     cost: 5.50,
+//     img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
+//   },
+//   {
+//     name: 'strawberry',
+//     cost: 8.50,
+//     img: "https://www.anediblemosaic.com/wp-content/uploads//2022/03/boba-milk-tea-featured-image.jpg",
+//   },
+// ];
 
 async function addItem(item: String) {
   //import the docRef that was created in login here
@@ -44,15 +44,33 @@ async function addItem(item: String) {
   });
 }
 
-
 function GenerateMerch() { // gets all unprocesss orders from database and displays them; only visible to admin
+  const [merch, setMerch] = useState<any[]>([]); //list of objects from firebase
+
+  useEffect(() => {
+    const fetchMerch = async () => {
+      const docRef = collection(db, "menu");
+      const docSnap = await getDocs(docRef);
+      const merchList: any[] = [];
+
+      if (!docSnap.empty) {
+        docSnap.forEach((doc) => {
+          merchList.push({ id: doc.id, ...doc.data() });
+        });
+        setMerch(merchList);
+      }
+    };
+
+    fetchMerch();
+  }, []);
+
   function add(customer: string) {// adds to cart
     alert("item added!");
   }
 
   return ( //item.whatever has to be the same property name as set in the database. Any typos or alterations will not reflect in the app.
     <View>
-      {merch.map((item: any) => (
+      {merch.map((item) => (
         <View
           id='merch'
           style={{
@@ -77,7 +95,7 @@ function GenerateMerch() { // gets all unprocesss orders from database and displ
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.name}</Text>
-            <Text style={{ fontSize: 20, }}>{'$'}{item.cost}</Text>
+            <Text style={{ fontSize: 20, }}>{'$'}{item.price}</Text>
           </View>
           <View
             id='right'
@@ -140,20 +158,22 @@ export default function Menu() {
         translucent={true}
       />
       <View id='header' style={styles.header}>
-        <View id='pfp' style={{
-          backgroundColor: '',
-          minHeight: 70,
-          minWidth: 70,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
+        <TouchableOpacity onPress={() => { router.back() }}>
+          <View id='pfp' style={{
+            backgroundColor: '',
+            minHeight: 70,
+            minWidth: 70,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
 
-        }}>
-          <Ionicons
-            name="person-circle-outline"
-            size={50} color="#614938"
-          />
-        </View>
+          }}>
+            <Ionicons
+              name="arrow-back-circle-outline"
+              size={50} color="#614938"
+            />
+          </View>
+        </TouchableOpacity>
         <View id='title' style={{ backgroundColor: '', display: 'flex', justifyContent: 'center', }}>
           <Text style={styles.title}>{'menu'}</Text>
         </View>
@@ -161,7 +181,7 @@ export default function Menu() {
           backgroundColor: '',
 
         }}>
-          <TouchableOpacity onPress={() => { }}> {/*signs the user out to login page */}
+          <TouchableOpacity onPress={() => { router.navigate('/cart') }}> {/*signs the user out to login page */}
             <Image
               source={require('@/assets/images/cart.png')}
               style={{
@@ -178,9 +198,10 @@ export default function Menu() {
           </TouchableOpacity>
         </View>
       </View>
-      <View id='body'>
+      
+      <ScrollView id='body' style={{ backgroundColor: '', flex: 1, }}>
         <GenerateMerch />
-      </View>
+      </ScrollView>
     </SafeAreaView >
   );
 }

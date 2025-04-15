@@ -38,7 +38,7 @@ export default function Login() {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
             const user = userCredential.user;
-            router.navigate('/(tabs)/menu');
+            router.navigate('/(tabs)/home');
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
