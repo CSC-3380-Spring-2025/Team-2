@@ -97,23 +97,6 @@ function GenerateCart() { // functional! just customize it properly
                             }}
                             resizeMode="contain"
                         />
-
-                        <TouchableOpacity
-                            style={{
-                                position: 'absolute',
-                                zIndex: 2,
-                                display: 'flex',
-                                top: '70%',
-                                left: '80%',
-                            }}
-                            onPress={() => {
-                                alert("added: " + item);
-                            }}>
-                            <Ionicons
-                                name="add-circle"
-                                size={50}
-                                color="#F2F1EB" />
-                        </TouchableOpacity>
                     </View>
                 </View>
             ))}

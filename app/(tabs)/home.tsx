@@ -131,22 +131,22 @@ export default function Home() {
                 translucent={true}
             />
             <View id='header' style={styles.header}>
-                <TouchableOpacity onPress={() => { router.back() }}>
-                <View id='pfp' style={{
-                    backgroundColor: '',
-                    minHeight: 70,
-                    minWidth: 70,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
+                <TouchableOpacity onPress={() => { router.navigate('/profilepage') }}>
+                    <View id='pfp' style={{
+                        backgroundColor: '',
+                        minHeight: 70,
+                        minWidth: 70,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
 
-                }}>
-                    <Ionicons
-                        name="person-circle-outline"
-                        size={50} color="#614938"
-                    />
+                    }}>
+                        <Ionicons
+                            name="person-circle-outline"
+                            size={50} color="#614938"
+                        />
                     </View>
-                    </TouchableOpacity>
+                </TouchableOpacity>
                 <View id='title' style={{ backgroundColor: '', display: 'flex', justifyContent: 'center', }}>
                     <Text style={styles.title}>bubble</Text>
                 </View>
