@@ -163,7 +163,7 @@ export default function Cart() {
             </ScrollView>
             <View id='footer' style={{ flex: 1 / 6 }}>
                 <View style={styles.rowCentered}>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => {router.navigate('/checkout')}} >
                         <View style={{
                             display: 'flex',
                             flex: 1,
