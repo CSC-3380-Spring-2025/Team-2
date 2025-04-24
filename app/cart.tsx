@@ -31,6 +31,8 @@ async function fetchCart() {
 
 let testCart: string[] = ["matcha", "peach", "strawberry"];
 
+
+
 function GenerateCart() { // functional! just customize it properly
     const [cart, setCart] = useState<any[]>([]); //list of objects from firebase
 
@@ -51,7 +53,7 @@ function GenerateCart() { // functional! just customize it properly
     }, []);
     return ( //item.whatever has to be the same property name as set in the database. Any typos or alterations will not reflect in the app. needs ternary statment for when cart is empty
         <View>
-            {cart.map((item: string) => ( // parameter is just a string
+            {cart.map((item: any) => ( // parameter is just a string
                 <View
                     id='merch'
                     style={{
@@ -75,8 +77,8 @@ function GenerateCart() { // functional! just customize it properly
 
                         }}
                     >
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item}</Text>
-                        <Text style={{ fontSize: 20, }}>{'$$$'}</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.name}</Text>
+                        <Text style={{ fontSize: 20, }}>{'$' + item.price}</Text>
                     </View>
                     <View
                         id='right'
@@ -90,7 +92,7 @@ function GenerateCart() { // functional! just customize it properly
                         }}
                     >
                         <Image
-                            src={item}
+                            src={item.img}
                             style={{
                                 flex: 1,
                                 backgroundColor: ''
@@ -106,10 +108,10 @@ function GenerateCart() { // functional! just customize it properly
 export default function Cart() {
     return (
         <SafeAreaView
-            style={{
-                flex: 1,
-                backgroundColor: '#F2F1EB',
-            }}
+        style={{
+            flex: 1,
+            backgroundColor: '#F2F1EB',
+        }}
         >
             <StatusBar
                 animated={true}

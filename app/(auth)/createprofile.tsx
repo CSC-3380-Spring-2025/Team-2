@@ -62,6 +62,8 @@ export default function CreateProfile() {
             password: cPassword,
             phone: parseInt(phone),
             cart: [],
+            favorites: [],
+            auth: false,
         });
 
         alert("Account Created for " + email); // should print the email that the user submitted
