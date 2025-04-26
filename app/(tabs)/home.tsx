@@ -165,7 +165,7 @@ export default function Home() {
                     </View>
                 </TouchableOpacity>
                 <View id='title' style={{ backgroundColor: '', display: 'flex', justifyContent: 'center', }}>
-                    <Text style={styles.title}>bubble</Text>
+                    <Text style={styles.title}>{'bubble'}</Text>
                 </View>
                 <View style={{
                     backgroundColor: '',
@@ -217,7 +217,7 @@ export default function Home() {
                                     alignItems: 'center',
                                     borderRadius: 10,
                                 }}>
-                                    <Text style={{ fontWeight: 'bold', color: '#688a65' }}>DETAILS</Text>
+                                    <Text style={{ fontWeight: 'bold', color: '#688a65' }}>{"DETAILS"}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -231,11 +231,11 @@ export default function Home() {
                             paddingTop: 10,
                         }}>
                         <View>
-                            <Text style={{ color: 'white' }}>☆  20 points: topping</Text>
-                            <Text style={{ color: 'white' }}>☆  40 points: drink</Text>
-                            <Text style={{ color: 'white' }}>☆  60 points: bakery item</Text>
-                            <Text style={{ color: 'white' }}>☆  80 points: food item</Text>
-                            <Text style={{ color: 'white' }}>☆  100 points: merchandise</Text>
+                            <Text style={{ color: 'white' }}>{"☆  20 points: topping"}</Text>
+                            <Text style={{ color: 'white' }}>{"☆  40 points: drink"}</Text>
+                            <Text style={{ color: 'white' }}>{"☆  60 points: bakery item"}</Text>
+                            <Text style={{ color: 'white' }}>{"☆  80 points: food item"}</Text>
+                            <Text style={{ color: 'white' }}>{"☆  100 points: merchandise"}</Text>
                         </View>
                     </View>
                     <View style={styles.divider2}>
@@ -255,7 +255,7 @@ export default function Home() {
                                                 alignItems: 'center',
                                                 borderRadius: 10,
                                             }}>
-                                                <Text style={{ fontWeight: 'bold', color: '#688a65' }}>MENU</Text>
+                                                <Text style={{ fontWeight: 'bold', color: '#688a65' }}>{"MENU"}</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
@@ -279,7 +279,7 @@ export default function Home() {
                                                 alignItems: 'center',
                                                 borderRadius: 10,
                                             }}>
-                                                <Text style={{ fontWeight: 'bold', color: '#688a65' }}>FAVORITES</Text>
+                                                <Text style={{ fontWeight: 'bold', color: '#688a65' }}>{"FAVORITES"}</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>

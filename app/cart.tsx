@@ -59,7 +59,7 @@ function GenerateCart() { // functional! just customize it properly
                     style={{
                         display: 'flex',
                         flex: 1,
-                        flexDirection: 'row',
+                        flexDirection: 'row-reverse',
                         borderRadius: 15,
                         borderColor: '#2c341b',
                         borderWidth: 3,
@@ -85,19 +85,24 @@ function GenerateCart() { // functional! just customize it properly
                         style={{
                             display: 'flex',
                             flex: 1,
-                            backgroundColor: '#688a65',
+                            backgroundColor: '#97ac82',
                             padding: 10,
-                            borderTopRightRadius: 12,
-                            borderBottomRightRadius: 12,
+                            borderTopLeftRadius: 12,
+                            borderBottomLeftRadius: 12,
+                            justifyContent: 'flex-end'
+
                         }}
                     >
                         <Image
                             src={item.img}
                             style={{
                                 flex: 1,
-                                backgroundColor: ''
+                                backgroundColor: 'red',
+                                borderRadius: 60,
+                                maxHeight: 150,
+                                maxWidth: 120,
                             }}
-                            resizeMode="contain"
+                        // resizeMode="contain"
                         />
                     </View>
                 </View>
@@ -108,10 +113,10 @@ function GenerateCart() { // functional! just customize it properly
 export default function Cart() {
     return (
         <SafeAreaView
-        style={{
-            flex: 1,
-            backgroundColor: '#F2F1EB',
-        }}
+            style={{
+                flex: 1,
+                backgroundColor: '#F2F1EB',
+            }}
         >
             <StatusBar
                 animated={true}
@@ -165,7 +170,7 @@ export default function Cart() {
             </ScrollView>
             <View id='footer' style={{ flex: 1 / 6 }}>
                 <View style={styles.rowCentered}>
-                    <TouchableOpacity onPress={() => {router.navigate('/checkout')}} >
+                    <TouchableOpacity onPress={() => { router.navigate('/checkout') }} >
                         <View style={{
                             display: 'flex',
                             flex: 1,
