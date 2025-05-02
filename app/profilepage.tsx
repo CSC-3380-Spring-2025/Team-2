@@ -11,12 +11,6 @@ import { router } from 'expo-router';
 
 export default function ProfileScreen() {
     const [pf, setPF] = useState<DocumentData>();
-    let pff = {
-        last: 'test',
-        dob: "January",
-        phone: 123,
-        email: "theemail",
-    }
 
     useEffect(() => {
         async function loadProfile() {

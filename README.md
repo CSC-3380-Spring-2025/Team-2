@@ -38,8 +38,12 @@ To access the home page either make an account
 or use our tester account
 Please keep in mind that our tester has admin priveledges
 Newly made account will not
-(Has Admin Privelges thus more access to features)
+(Has Admin Priveledges thus more access to features)
 email: beaux@gmail.com
+password: temppassword
+
+(Regular Priveledges)
+email: melanie@gmail.com
 password: temppassword
 
 If there are any other issues this is resolve everything

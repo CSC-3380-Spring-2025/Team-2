@@ -113,10 +113,10 @@ function GenerateCart() { // functional! just customize it properly
 export default function Cart() {
     return (
         <SafeAreaView
-            style={{
-                flex: 1,
-                backgroundColor: '#F2F1EB',
-            }}
+        style={{
+            flex: 1,
+            backgroundColor: '#F2F1EB',
+        }}
         >
             <StatusBar
                 animated={true}
