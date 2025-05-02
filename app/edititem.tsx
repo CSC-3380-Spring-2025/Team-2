@@ -74,11 +74,22 @@ export default function EditMenu() {
                 translucent={true}
             />
             <View style={styles.rowCentered}>
-                <View
-                    id='backBtn'
-                    style={styles.backBtn}>
-                    <Ionicons name='arrow-back-circle-outline' size={50} color='#614938' />
-                </View>
+                <TouchableOpacity style={{ display: 'flex', zIndex: 10, position: 'absolute', left: 0, }} onPress={() => { router.navigate('/(tabs)/menumanagement') }}>
+                    <View id='pfp' style={{
+                        backgroundColor: '',
+                        minHeight: 70,
+                        minWidth: 70,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+
+                    }}>
+                        <Ionicons
+                            name="arrow-back-circle-outline"
+                            size={50} color="#614938"
+                        />
+                    </View>
+                </TouchableOpacity>
                 <View id='logo' style={styles.logo}>
                     <View style={{}}>
                         <Image

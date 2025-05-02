@@ -3,6 +3,7 @@ import { Button, Dimensions, Image, Platform, SafeAreaView, StatusBar, StyleShee
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { db } from '@/FirebaseConfig';
 import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where, } from 'firebase/firestore';
+import { router } from 'expo-router';
 
 let data: any = [
     {
@@ -221,20 +222,22 @@ export default function OrderManagement() {
                 networkActivityIndicatorVisible={true}
                 translucent={true} />
             <View id='header' style={styles.header}>
-                <View id='pfp' style={{
-                    backgroundColor: '',
-                    minHeight: 70,
-                    minWidth: 70,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
+                <TouchableOpacity onPress={() => { router.navigate('/(tabs)/admindash') }}>
+                    <View id='pfp' style={{
+                        backgroundColor: '',
+                        minHeight: 70,
+                        minWidth: 70,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
 
-                }}>
-                    <Ionicons
-                        name="person-circle-outline"
-                        size={50} color="#614938"
-                    />
-                </View>
+                    }}>
+                        <Ionicons
+                            name="arrow-back-circle-outline"
+                            size={50} color="#614938"
+                        />
+                    </View>
+                </TouchableOpacity>
                 <View id='title' style={{ backgroundColor: '', display: 'flex', justifyContent: 'center', }}>
                     <Text style={styles.title}>current orders</Text>
                 </View>
@@ -242,7 +245,7 @@ export default function OrderManagement() {
                     backgroundColor: '',
 
                 }}>
-                    <TouchableOpacity onPress={() => auth.signOut()}> {/*signs the user out to login page */}
+                    <TouchableOpacity onPress={() => router.navigate('/cart')}> {/*signs the user out to login page */}
                         <Image
                             source={require('@/assets/images/cart.png')}
                             style={{

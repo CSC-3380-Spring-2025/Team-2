@@ -19,7 +19,7 @@ async function addItem(itemID: any) {
     await updateDoc(docRef, {
         cart: arrayUnion(data)
     });
-    
+
 }
 
 function GenerateFav() { // gets all unprocesss orders from database and displays them; only visible to admin
@@ -164,10 +164,12 @@ export default function Favorites() {
                     alignItems: 'center'
 
                 }}>
-                    <Ionicons
-                        name="person-circle-outline"
-                        size={50} color="#614938"
-                    />
+                    <TouchableOpacity onPress={() => { router.navigate('/(tabs)/home') }}>
+                        <Ionicons
+                            name="arrow-back-circle-outline"
+                            size={50} color="#614938"
+                        />
+                    </TouchableOpacity>
                 </View>
                 <View id='title' style={{ backgroundColor: '', display: 'flex', justifyContent: 'center', }}>
                     <Text style={styles.title}>{'favorites'}</Text>

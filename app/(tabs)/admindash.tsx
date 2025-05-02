@@ -37,7 +37,7 @@ export default function AdminDash() {
                 translucent={true}
             />
             <View id='header' style={styles.header}>
-                <TouchableOpacity onPress={() => { router.navigate('/profilepage') }}>
+                <TouchableOpacity onPress={() => { router.navigate('/(tabs)/home') }}>
                     <View id='pfp' style={{
                         backgroundColor: '',
                         minHeight: 70,
@@ -48,7 +48,7 @@ export default function AdminDash() {
 
                     }}>
                         <Ionicons
-                            name="person-circle-outline"
+                            name="arrow-back-circle-outline"
                             size={50} color="#614938"
                         />
                     </View>
@@ -60,7 +60,7 @@ export default function AdminDash() {
                     backgroundColor: '',
 
                 }}>
-                    <TouchableOpacity onPress={() => auth.signOut()}> {/*signs the user out to login page */}
+                    <TouchableOpacity onPress={() => {router.navigate('/cart')}}> {/*signs the user out to login page */}
                         <Image
                             source={require('@/assets/images/cart.png')}
                             style={{
@@ -111,26 +111,12 @@ export default function AdminDash() {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View
-                        style={{
-                            display: dets ? 'flex' : 'none',
-                            flexDirection: "row",
-                            justifyContent: 'center',
-                            borderRadius: 5,
-                            paddingTop: 10,
-                        }}>
-                        <View>
-                            <Text style={{ color: 'white' }}>{"☆  20 points: topping"}</Text>
-                            <Text style={{ color: 'white' }}>{"☆  40 points: drink"}</Text>
-                            <Text style={{ color: 'white' }}>{"☆  60 points: bakery item"}</Text>
-                            <Text style={{ color: 'white' }}>{"☆  80 points: food item<"}</Text>
-                            <Text style={{ color: 'white' }}>{"☆  100 points: merchandise"}</Text>
-                        </View>
-                    </View>
                     <View style={styles.divider2}>
                         <View style={{ marginBottom: 30 }}>
                             <View style={styles.rowCentered}>
-                                <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                                <TouchableOpacity onPress={() => {
+                                    router.navigate('/customermanagement')
+                                }}
                                 >
                                     <View style={{
                                         display: 'flex',
@@ -154,7 +140,9 @@ export default function AdminDash() {
                         <View style={styles.divider3}>
                             <View style={styles.rowCentered}>
                                 <View style={styles.button}>
-                                    <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                                    <TouchableOpacity onPress={() => {
+                                    router.navigate('/(tabs)/menumanagement')
+                                }}
                                     >
                                         <View style={{
                                             display: 'flex',

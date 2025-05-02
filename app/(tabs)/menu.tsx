@@ -36,6 +36,8 @@ async function favorite(itemID: any) {
 
 export default function MenuScreen() {
   const [merch, setMerch] = useState<any[]>([]); //list of objects from firebase
+  const [auth, setAuth] = useState<boolean>();
+
 
   useEffect(() => {
     const fetchMerch = async () => {
@@ -50,8 +52,20 @@ export default function MenuScreen() {
         setMerch(merchList);
       }
     };
-
+    async function loadProfile() {
+      const docID: any = getAuth().currentUser?.email; // functional: gets the email of who's currently logged in
+      const docRef = doc(db, "users", docID); // functional
+      const docSnap = await getDoc(docRef); // functional
+      if (docSnap.exists()) { // outputs true
+        const data = docSnap.data(); // functional
+        setAuth(data.auth);
+      } else {
+        alert("No Profile Found");
+      }
+    };
+    
     fetchMerch();
+    loadProfile();
   }, []);
 
   return (
@@ -110,7 +124,7 @@ export default function MenuScreen() {
           <TextInput style={{ borderWidth: 2, borderColor: '#2c341b', borderRadius: 10 }} placeholder='search drinks' />
 
         </View>
-        <View style={{ display: 'flex', flex: 1 / 3, }}>
+        <View style={{ display: auth ? 'flex' : 'none', flex: 1 / 3, }}>
           <TouchableOpacity onPress={() => {
             router.push('/(tabs)/menumanagement')
           }}>
@@ -123,7 +137,7 @@ export default function MenuScreen() {
               justifyContent: 'center',
               alignItems: 'center'
             }}>
-              <Text style={{ fontWeight: 'bold', color: '#F2F1EB' }}>EDIT MENU</Text></View>
+              <Text style={{ fontWeight: 'bold', color: '#F2F1EB' }}>{"EDIT MENU"}</Text></View>
           </TouchableOpacity>
         </View>
       </View>

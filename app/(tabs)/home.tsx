@@ -112,27 +112,29 @@ const styles = StyleSheet.create({
 
 export default function Home() {
     let [dets, setDets] = React.useState(false);
+    const [auth, setAuth] = useState<boolean>();
 
     function changeDets() { // functional
         setDets(dets => !dets);
     }
 
     const [pts, setPt] = useState<DocumentData>();
-    
-        useEffect(() => {
-            async function loadProfile() {
-                const docID: any = getAuth().currentUser?.email; // functional: gets the email of who's currently logged in
-                const docRef = doc(db, "users", docID); // functional
-                const docSnap = await getDoc(docRef); // functional
-                if (docSnap.exists()) { // outputs true
-                    const data = docSnap.data(); // functional
-                    setPt(data.points);
-                } else {
-                    alert("No Profile Found");
-                }
+
+    useEffect(() => {
+        async function loadProfile() {
+            const docID: any = getAuth().currentUser?.email; // functional: gets the email of who's currently logged in
+            const docRef = doc(db, "users", docID); // functional
+            const docSnap = await getDoc(docRef); // functional
+            if (docSnap.exists()) { // outputs true
+                const data = docSnap.data(); // functional
+                setPt(data.points);
+                setAuth(data.auth);
+            } else {
+                alert("No Profile Found");
             }
-            loadProfile();
-        }, []);
+        };
+        loadProfile();
+    }, []);
 
     return (
         <SafeAreaView style={{
@@ -197,8 +199,8 @@ export default function Home() {
                 }}>
                 <View style={styles.divider1}>
                     <View style={{ marginLeft: 20 }}>
-                        <Text style={{ fontSize: 40, color: '#F2F1EB'}}>{'Rewards'}</Text>
-                        <Text style={{ fontSize: 30, color: '#F2F1EB'}}>{pts + ' Points'}</Text>
+                        <Text style={{ fontSize: 40, color: '#F2F1EB' }}>{'Rewards'}</Text>
+                        <Text style={{ fontSize: 30, color: '#F2F1EB' }}>{pts + ' Points'}</Text>
                     </View>
                     <View style={{ marginBottom: 30 }}>
                         <View style={styles.rowCentered}>
@@ -266,8 +268,25 @@ export default function Home() {
                         <View style={styles.divider3}>
                             <View style={{ marginBottom: 30 }}>
                                 <View style={styles.rowCentered}>
-                                    <View /*style={styles.button}*/>
-                                        <TouchableOpacity // if we have time, we should design a button component that has all these features.
+                                    <View>
+                                        <TouchableOpacity
+                                            style={{ display: auth ? "flex" : "none", flex: 1 }}
+                                            onPress={() => router.push('/(tabs)/admindash')}>
+                                            <View style={{
+                                                display: 'flex',
+                                                flex: 1,
+                                                backgroundColor: '#F2F1EB',
+                                                minWidth: 275,
+                                                minHeight: 35,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                borderRadius: 10,
+                                            }}>
+                                                <Text style={{ fontWeight: 'bold', color: '#688a65' }}>ADMIN DASHBOARD</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={{ display: !auth ? "flex" : "none", flex: 1 }}
                                             onPress={() => router.push('/favorites')}>
                                             <View style={{
                                                 display: 'flex',
@@ -284,6 +303,7 @@ export default function Home() {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
+
                             </View>
                         </View>
                     </View>
