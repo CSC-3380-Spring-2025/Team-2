@@ -50,10 +50,12 @@ export default function ProfileScreen() {
                     alignItems: 'center'
 
                 }}>
-                    <Ionicons
-                        name="arrow-back-circle-outline"
-                        size={50} color="#614938"
-                    />
+                    <TouchableOpacity onPress={() => { router.navigate('/(tabs)/home') }}>
+                        <Ionicons
+                            name="arrow-back-circle-outline"
+                            size={50} color="#614938"
+                        />
+                    </TouchableOpacity>
                 </View>
                 <View id='title' style={{ backgroundColor: '', display: 'flex', justifyContent: 'center', }}>
                     <Text style={styles.title}>account</Text>

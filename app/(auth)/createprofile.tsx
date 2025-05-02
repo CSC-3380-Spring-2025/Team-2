@@ -55,6 +55,7 @@ export default function CreateProfile() {
         const birthdayTimestamp = Timestamp.fromDate(birthday);
 
         await setDoc(doc(db, "users", email), {
+            auth: false,
             dob: birthdayTimestamp,
             email: email,
             first: first,
@@ -62,6 +63,8 @@ export default function CreateProfile() {
             password: cPassword,
             phone: parseInt(phone),
             cart: [],
+            favorites: [],
+            points: 0,
         });
 
         alert("Account Created for " + email); // should print the email that the user submitted
@@ -83,11 +86,22 @@ export default function CreateProfile() {
                 translucent={true}
             />
             <View style={styles.rowCentered}>
-                <View
-                    id='backBtn'
-                    style={styles.backBtn}>
-                    <Ionicons name='arrow-back-circle-outline' size={50} color='#614938' />
-                </View>
+                <TouchableOpacity style={{ display: 'flex', zIndex: 10, position: 'absolute', left: 0, }} onPress={() => { router.navigate('/(auth)/login') }}>
+                    <View id='pfp' style={{
+                        backgroundColor: '',
+                        minHeight: 70,
+                        minWidth: 70,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+
+                    }}>
+                        <Ionicons
+                            name="arrow-back-circle-outline"
+                            size={50} color="#614938"
+                        />
+                    </View>
+                </TouchableOpacity>
                 <View id='logo' style={styles.logo}>
                     <View style={{}}>
                         <Image

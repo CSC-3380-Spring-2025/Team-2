@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { Button, Dimensions, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { auth } from '@/FirebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { router } from 'expo-router';
+import { db } from '@/FirebaseConfig';
+import { getDoc, doc, DocumentData } from 'firebase/firestore';
 
 const { height, width, } = Dimensions.get('window');
 const vw = width / 100;
@@ -112,10 +112,29 @@ const styles = StyleSheet.create({
 
 export default function Home() {
     let [dets, setDets] = React.useState(false);
+    const [auth, setAuth] = useState<boolean>();
 
     function changeDets() { // functional
         setDets(dets => !dets);
     }
+
+    const [pts, setPt] = useState<DocumentData>();
+
+    useEffect(() => {
+        async function loadProfile() {
+            const docID: any = getAuth().currentUser?.email; // functional: gets the email of who's currently logged in
+            const docRef = doc(db, "users", docID); // functional
+            const docSnap = await getDoc(docRef); // functional
+            if (docSnap.exists()) { // outputs true
+                const data = docSnap.data(); // functional
+                setPt(data.points);
+                setAuth(data.auth);
+            } else {
+                alert("No Profile Found");
+            }
+        };
+        loadProfile();
+    }, []);
 
     return (
         <SafeAreaView style={{
@@ -179,8 +198,10 @@ export default function Home() {
                     flex: 1,
                 }}>
                 <View style={styles.divider1}>
-                    {/* <Text>Rewards</Text>
-                    <Text>60 Points</Text> // this should not be hard coded!!! */}
+                    <View style={{ marginLeft: 20 }}>
+                        <Text style={{ fontSize: 40, color: '#F2F1EB' }}>{'Rewards'}</Text>
+                        <Text style={{ fontSize: 30, color: '#F2F1EB' }}>{pts + ' Points'}</Text>
+                    </View>
                     <View style={{ marginBottom: 30 }}>
                         <View style={styles.rowCentered}>
                             <TouchableOpacity // if we have time, we should design a button component that has all these features.
@@ -222,31 +243,10 @@ export default function Home() {
                     <View style={styles.divider2}>
                         <View style={{ marginBottom: 30 }}>
                             <View style={styles.rowCentered}>
-                                <View /*style={styles.button}*/>
-                                    <TouchableOpacity // if we have time, we should design a button component that has all these features.
-                                        onPress={() => { router.push('/(tabs)/menubackup') }}>
-                                        <View style={{
-                                            display: 'flex',
-                                            flex: 1,
-                                            backgroundColor: '#F2F1EB',
-                                            minWidth: 275,
-                                            minHeight: 35,
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            borderRadius: 10,
-                                        }}>
-                                            <Text style={{ fontWeight: 'bold', color: '#688a65' }}>MENU</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.divider3}>
-                            <View style={{ marginBottom: 30 }}>
-                                <View style={styles.rowCentered}>
-                                    <View /*style={styles.button}*/>
+                                <View style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <View style={{ flex: 1 }}>
                                         <TouchableOpacity // if we have time, we should design a button component that has all these features.
-                                            onPress={() => router.push('/recents')}>
+                                            onPress={() => { router.push('/(tabs)/menu') }}>
                                             <View style={{
                                                 display: 'flex',
                                                 flex: 1,
@@ -257,11 +257,53 @@ export default function Home() {
                                                 alignItems: 'center',
                                                 borderRadius: 10,
                                             }}>
-                                                <Text style={{ fontWeight: 'bold', color: '#688a65' }}>RECENTS</Text>
+                                                <Text style={{ fontWeight: 'bold', color: '#688a65' }}>MENU</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
+                            </View>
+
+                        </View>
+                        <View style={styles.divider3}>
+                            <View style={{ marginBottom: 30 }}>
+                                <View style={styles.rowCentered}>
+                                    <View>
+                                        <TouchableOpacity
+                                            style={{ display: auth ? "flex" : "none", flex: 1 }}
+                                            onPress={() => router.push('/(tabs)/admindash')}>
+                                            <View style={{
+                                                display: 'flex',
+                                                flex: 1,
+                                                backgroundColor: '#F2F1EB',
+                                                minWidth: 275,
+                                                minHeight: 35,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                borderRadius: 10,
+                                            }}>
+                                                <Text style={{ fontWeight: 'bold', color: '#688a65' }}>ADMIN DASHBOARD</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={{ display: !auth ? "flex" : "none", flex: 1 }}
+                                            onPress={() => router.push('/favorites')}>
+                                            <View style={{
+                                                display: 'flex',
+                                                flex: 1,
+                                                backgroundColor: '#F2F1EB',
+                                                minWidth: 275,
+                                                minHeight: 35,
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                borderRadius: 10,
+                                            }}>
+                                                <Text style={{ fontWeight: 'bold', color: '#688a65' }}>FAVORITES</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+
                             </View>
                         </View>
                     </View>

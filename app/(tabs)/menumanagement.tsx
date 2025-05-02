@@ -131,7 +131,7 @@ export default function EditMenu() {
         translucent={true}
       />
       <View id='header' style={styles.header}>
-        <TouchableOpacity onPress={() => { router.back() }}>
+        <TouchableOpacity onPress={() => { router.navigate('/menu') }}>
           <View id='pfp' style={{
             backgroundColor: '',
             minHeight: 70,

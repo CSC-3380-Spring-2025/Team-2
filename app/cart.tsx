@@ -31,6 +31,8 @@ async function fetchCart() {
 
 let testCart: string[] = ["matcha", "peach", "strawberry"];
 
+
+
 function GenerateCart() { // functional! just customize it properly
     const [cart, setCart] = useState<any[]>([]); //list of objects from firebase
 
@@ -51,13 +53,13 @@ function GenerateCart() { // functional! just customize it properly
     }, []);
     return ( //item.whatever has to be the same property name as set in the database. Any typos or alterations will not reflect in the app. needs ternary statment for when cart is empty
         <View>
-            {cart.map((item: string) => ( // parameter is just a string
+            {cart.map((item: any) => ( // parameter is just a string
                 <View
                     id='merch'
                     style={{
                         display: 'flex',
                         flex: 1,
-                        flexDirection: 'row',
+                        flexDirection: 'row-reverse',
                         borderRadius: 15,
                         borderColor: '#2c341b',
                         borderWidth: 3,
@@ -75,27 +77,32 @@ function GenerateCart() { // functional! just customize it properly
 
                         }}
                     >
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item}</Text>
-                        <Text style={{ fontSize: 20, }}>{'$$$'}</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.name}</Text>
+                        <Text style={{ fontSize: 20, }}>{'$' + item.price}</Text>
                     </View>
                     <View
                         id='right'
                         style={{
                             display: 'flex',
                             flex: 1,
-                            backgroundColor: '#688a65',
+                            backgroundColor: '#97ac82',
                             padding: 10,
-                            borderTopRightRadius: 12,
-                            borderBottomRightRadius: 12,
+                            borderTopLeftRadius: 12,
+                            borderBottomLeftRadius: 12,
+                            justifyContent: 'flex-end'
+
                         }}
                     >
                         <Image
-                            src={item}
+                            src={item.img}
                             style={{
                                 flex: 1,
-                                backgroundColor: ''
+                                backgroundColor: 'red',
+                                borderRadius: 60,
+                                maxHeight: 150,
+                                maxWidth: 120,
                             }}
-                            resizeMode="contain"
+                        // resizeMode="contain"
                         />
                     </View>
                 </View>
@@ -163,7 +170,7 @@ export default function Cart() {
             </ScrollView>
             <View id='footer' style={{ flex: 1 / 6 }}>
                 <View style={styles.rowCentered}>
-                    <TouchableOpacity onPress={() => {router.navigate('/checkout')}} >
+                    <TouchableOpacity onPress={() => { router.navigate('/checkout') }} >
                         <View style={{
                             display: 'flex',
                             flex: 1,
