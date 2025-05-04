@@ -23,7 +23,7 @@ Kanban Board: https://www.notion.so/3380-Project-17d239c70f2980eda9b5c16da45ae94
 Designs: https://www.figma.com/design/0hr2l1GO9JlkkFzj4LoAUK/Bubble?node-id=10-2202&t=Ypk9JjU8EsMfEPth-1
 Styles Guide(s): [link]
 
-#Prerequisites 
+# Prerequisites
 The following should be installed. The version shouldn't be a huge deal but just in case they are listed
 Install Android Studio: https://developer.android.com/studio 
 Our Android Bridge Version is 1.0.41
