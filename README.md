@@ -4,7 +4,7 @@ Project Manager: Kayla Theriot (kaylatheriot04)\
 Communications Lead: Jack O'Conner ([GitHub Name])\
 Git Master: Melanie J. Steiner (an-npc)\
 Design Lead: Nicole Parra (nicki911)\
-Quality Assurance Tester: Emerson ([GitHub Name])
+Quality Assurance Tester: Emerson Ricketts(EmersonRick)
 
 # About Our Software
 Bubble is an order/pick up app. Where the user can app drinks to their cart
