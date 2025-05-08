@@ -40,6 +40,7 @@ Our Version is v2.4.1
 ```sh
 choco info
 ```
+Install Expo SDK Version 52 for emulators(Latest Version 53 does not work)
 
 # How to Run Dev and Test Environment
 Install Expo for Project: 
